@@ -9,7 +9,6 @@ setup(
         "pandas",
         "pytest",
         "pytest-mock",
-        "json"
     ]
 )
 
