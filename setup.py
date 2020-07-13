@@ -9,16 +9,16 @@ setup(
         "pandas",
         "pytest",
         "pytest-mock",
-        "yaml"
+        "json"
     ]
 )
 
 
-import yaml
-with open('test_out.yaml', 'w') as file:
+import json
+with open('config.json', 'w') as file:
     default_config = {
         "homedir": "./",
         "investing.com": [],
         "yahoo-finance": [], 
     }
-    yaml.dump(default_config, file, default_flow_style=False)
+    json.dump(default_config, file, indent=4)
