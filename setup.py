@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup,find_packages
 
 
 setup(
@@ -9,7 +9,9 @@ setup(
         "pandas",
         "pytest",
         "pytest-mock",
-    ]
+    ],
+    packages=find_packages(where='./'),
+    package_dir={'': './'},
 )
 
 
