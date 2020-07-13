@@ -14,14 +14,6 @@ def _requires_from_file(filename):
 setup(
     name="stockdatasaver",
     version="0.0.1",
-    description="パッケージの説明",
-    author="tarai",
-    packages=find_packages(),
-    # package_dir={"": "src"},
-    # py_modules=[splitext(basename(path))[0] for path in glob('src/*.py')],
-    # include_package_data=True,
-    # zip_safe=False,
-    # tests_require=["pytest"]
     install_requires=_requires_from_file('requirements.txt')
 )
 
