@@ -12,5 +12,4 @@ def test_get_main_universe(mocker):
 
 
 def test_prepare_config():
-
-    
+    pass
