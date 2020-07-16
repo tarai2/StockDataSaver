@@ -1,0 +1,77 @@
+homedir: ./
+investing.com:
+    Bond:
+        AU: []
+        DE: []
+        FR: []
+        JP: []
+        KS: []
+        UK: []
+        US: []
+    Commodity:
+        Gold: []
+        Oil: []
+        Platinum: []
+        Silver: []
+    Currency:
+        AUD: []
+        EUR: []
+        JPY: []
+        USD: []
+    Equity:
+        AU: []
+        DE: []
+        FR: []
+        JP: []
+        KS: []
+        UK: []
+        US: []
+    Forex:
+        Forward:
+            AUDUSD: []
+            EURUSD: []
+            GBPUSD: []
+            USDJPY: []
+        Spot:
+            AUDUSD: []
+            EURUSD: []
+            GBPUSD: []
+            USDJPY: []
+yfinance:
+    Bond:
+        AU: []
+        DE: []
+        FR: []
+        JP: []
+        KS: []
+        UK: []
+        US: []
+    Commodity:
+        Gold: []
+        Oil: []
+        Platinum: []
+        Silver: []
+    Currency:
+        AUD: []
+        EUR: []
+        JPY: []
+        USD: []
+    Equity:
+        AU: []
+        DE: []
+        FR: []
+        JP: []
+        KS: []
+        UK: []
+        US: []
+    Forex:
+        Forward:
+            AUDUSD: []
+            EURUSD: []
+            GBPUSD: []
+            USDJPY: []
+        Spot:
+            AUDUSD: []
+            EURUSD: []
+            GBPUSD: []
+            USDJPY: []
