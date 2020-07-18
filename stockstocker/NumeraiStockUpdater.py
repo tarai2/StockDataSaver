@@ -20,6 +20,10 @@ class NumeraiStockUpdater:
 
 
     def prepare_config(self, filepath):
+        """ config.yamlが存在しない場合, default_config.yamlから生成
+        Args:
+            filepath (str): ./*/config.yaml
+        """
         if not os.path.exists(filepath):
             with open(dirname(__file__) + "/default_config.yaml") as file:
                 default_config = yaml.load(file)

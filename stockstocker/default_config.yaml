@@ -11,8 +11,11 @@ investing.com:
     Commodity:
         Gold: []
         Oil: []
+        Gas: []
         Platinum: []
         Silver: []
+        Corn : []
+        Soy: []
     Currency:
         AUD: []
         EUR: []
@@ -49,8 +52,11 @@ yfinance:
     Commodity:
         Gold: []
         Oil: []
+        Gas: []
         Platinum: []
         Silver: []
+        Corn : []
+        Soy: []
     Currency:
         AUD: []
         EUR: []

@@ -29,14 +29,27 @@ class Country(Enum):
         if self == Country.DE: return ".DE"
 
 
-def CountryCode(country_code):
-    if country_code == "": return Country.US
-    elif country_code == "JT" or country_code == ".T": return Country.JP
-    elif country_code == "LN" or country_code == ".L": return Country.UK
-    elif country_code == "KS" or country_code == ".KS": return Country.KS
-    elif country_code == "FP" or country_code == ".PA": return Country.FR
-    elif country_code == "AS" or country_code == ".AX": return Country.AU
-    elif country_code == "GY" or country_code == ".DE": return Country.DE
+def getCountryCode(country_code):
+    """ その他のカントリーコードをMyContryCodeに変換
+    Args:
+        country_code (str): JT, .T等, NumeraiやYFin使用のカントリーコード
+    Returns:
+        Country:
+    """
+    if country_code in ["", "US", "united states", "America"]:
+        return Country.US
+    elif country_code in ["JT", ".T", "T", "JP", "JPN", "japan"]:
+        return Country.JP
+    elif country_code in ["LN", ".L", "L", "UK"]:
+        return Country.UK
+    elif country_code in ["KS", ".KS", "Korea"]:
+        return Country.KS
+    elif country_code in ["FP", ".PA", "PA", "FR", "france"]:
+        return Country.FR
+    elif country_code in ["AS", ".AX", "AX", "AUD"]:
+        return Country.AU
+    elif country_code in ["GY", ".DE", "DE", "GER", "germany"]:
+        return Country.DE
 
 
 class CurrencyPair(Enum):

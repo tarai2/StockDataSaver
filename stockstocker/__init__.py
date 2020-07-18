@@ -1,4 +1,5 @@
 __version__ = "0.0.0"
 
+from .CountryCode import Country, getCountryCode
 from .NumeraiStockUpdater import NumeraiStockUpdater
-from .CountryCode import *
+from .YFinanceSaver import YFinanceSaver
