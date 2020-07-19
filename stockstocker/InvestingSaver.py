@@ -30,13 +30,74 @@ class InvestingSaver(SaverBase):
             self.config_dict = config_yaml["investing.com"]
             self.logger.info("loaded config.yaml")
 
-    def get_
+
+    def update_equity_indices(self):
+        """ Equity Indexをupdate
+        """
+        indices_dict = self.config_dict["Equity"]["Index"]
+        for country_code, symbols in indices_dict.items():
+            for symbol in symbols:
+                # folder_path作成: home/Equity/Index/JP/N225/
+                folder_path = "{}/{}/{}/{}/{}/".format(
+                    self.homedir, "Equity", "Index",
+                    country_code, symbol
+                )
+                # Daily
+                self.mkdir(folder_path + "Daily")
+                self._get_daily_ohlcv(symbol, folder_path + "Daily")
+                time.sleep(1)
+
+
+    def update_bonds(self):
+        bonds_list = self.config_dict["Bond"]
+        for country_code, symbols in bonds_dict.items():
+            for symbol in symbols:
+                # folder_path作成: home/Bond/JP/Japan 10Y/
+                folder_path = "{}/{}/{}/{}/".format(
+                    self.homedir, "Bond",
+                    country_code, symbol
+                )
+                # Daily
+                self.mkdir(folder_path + "Daily")
+                self._get_daily_ohlcv(symbol, folder_path + "Daily")
+                time.sleep(1)
+
+
+    def update_currencies(self):
+        currency_dict = self.config_dict["Currency"]
+        for currency_code, symbols in currency_dict.items():
+            for symbol in symbols:
+                # folder_path作成: home/Currency/USD/
+                folder_path = "{}/{}/{}/{}/".format(
+                    self.homedir, "Currency",
+                    currency_code, symbol
+                )
+                # Daily
+                self.mkdir(folder_path + "Daily")
+                self._get_daily_ohlcv(symbol, folder_path + "Daily")
+                time.sleep(1)
+
+
+    def get_equity_indices(self):
+        bonds_list = self.config_dict["Bond"]
+        for country_code, symbols in bonds_dict.items():
+            for symbol in symbols:
+                # folder_path作成: home/Bond/JP/Japan 10Y/
+                folder_path = "{}/{}/{}/{}/".format(
+                    self.homedir, "Bond",
+                    country_code, symbol
+                )
+                # Daily
+                self.mkdir(folder_path + "Daily")
+                self._get_daily_ohlcv(symbol, folder_path + "Daily")
+                time.sleep(1)
+
 
     def _get_daily_ohlcv(self, symbol, folder_path):
         """ symbolのDailyOHLCVをupdate.
         Args:
-            folder_path (str): e.g. home/Product/Country/Symbol/Daily
             symbol (str): e.g. US Dollar Index
+            folder_path (str): e.g. home/Product/Country/Symbol/Daily
         """
         latest_date = self._get_latest_date(folder_path)
         search_res = investpy.search(text=symbol)

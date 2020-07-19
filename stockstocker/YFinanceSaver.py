@@ -31,7 +31,7 @@ class YFinanceSaver(SaverBase):
             self.logger.info("loaded config.yaml")
 
 
-    def get_equites(self):
+    def update_equites(self):
         """ config.yaml内のEquityの一括download
         """
         equity_list = self.config_dict["Equity"]["Indivisual"]
@@ -43,21 +43,21 @@ class YFinanceSaver(SaverBase):
             )
             # Daily
             self.mkdir(folder_path + "Daily")
-            self._get_daily_ohlcv(folder_path + "Daily", symbol)
+            self._get_daily_ohlcv(symbol, folder_path + "Daily")
             # Intraday
             self.mkdir(folder_path + "Intraday")
-            self._get_1min_ohlcv(folder_path + "Intraday", symbol)
+            self._get_1min_ohlcv(symbol, folder_path + "Intraday")
             # Info
             self.mkdir(folder_path + "Info")
-            self._get_symbol_info(folder_path + "Info", symbol)
+            self._get_symbol_info(symbol, folder_path + "Info")
             time.sleep(1)
 
 
-    def get_equity_indices(self):
+    def update_equity_indices(self):
         """ config.yaml内のEquityの一括download
         """
-        indices_list = self.config_dict["Equity"]["Index"]
-        for country_code, symbols in commodity_dict.items():
+        indices_dist = self.config_dict["Equity"]["Index"]
+        for country_code, symbols in indices_dict.items():
             for symbol in symbols:
                 # folder_path作成: home/Equity/Index/JP/N225/
                 folder_path = "{}/{}/{}/{}/{}/".format(
@@ -66,17 +66,17 @@ class YFinanceSaver(SaverBase):
                 )
                 # Daily
                 self.mkdir(folder_path + "Daily")
-                self._get_daily_ohlcv(folder_path + "Daily", symbol)
+                self._get_daily_ohlcv(symbol, folder_path + "Daily")
                 # Intraday
                 self.mkdir(folder_path + "Intraday")
-                self._get_1min_ohlcv(folder_path + "Intraday", symbol)
+                self._get_1min_ohlcv(symbol, folder_path + "Intraday")
                 # Info
                 self.mkdir(folder_path + "Info")
-                self._get_symbol_info(folder_path + "Info", symbol)
+                self._get_symbol_info(symbol, folder_path + "Info")
                 time.sleep(1)
 
 
-    def get_commodities(self):
+    def update_commodities(self):
         """ config.yamlのCommidityの一括download
         """
         commodity_dict = self.config_dict["Commodity"]
@@ -88,17 +88,17 @@ class YFinanceSaver(SaverBase):
                 )
                 # Daily
                 self.mkdir(folder_path + "Daily")
-                self._get_daily_ohlcv(folder_path + "Daily", symbol)
+                self._get_daily_ohlcv(symbol, folder_path + "Daily")
                 # Intraday
                 self.mkdir(folder_path + "Intraday")
-                self._get_1min_ohlcv(folder_path + "Intraday", symbol)
+                self._get_1min_ohlcv(symbol, folder_path + "Intraday")
                 # Info
                 self.mkdir(folder_path + "Info")
-                self._get_symbol_info(folder_path + "Info", symbol)
+                self._get_symbol_info(symbol, folder_path + "Info")
                 time.sleep(1)
 
 
-    def get_forex():
+    def update_forex():
         """ config.yamlのForexの一括download
         """
         tenor_dict = self.config_dict["Forex"]
@@ -110,10 +110,10 @@ class YFinanceSaver(SaverBase):
                 )
                 # Daily
                 self.mkdir(folder_path + "Daily")
-                self._get_daily_ohlcv(folder_path + "Daily", symbol)
+                self._get_daily_ohlcv(symbol, folder_path + "Daily")
                 # Intraday
                 self.mkdir(folder_path + "Intraday")
-                self._get_1min_ohlcv(folder_path + "Intraday", symbol)
+                self._get_1min_ohlcv(symbol, folder_path + "Intraday")
                 time.sleep(1)
 
 
