@@ -32,7 +32,7 @@ class InvestingSaver(SaverBase):
 
 
     def update_equity_indices(self):
-        """ Equity Indexをupdate
+        """ config.yaml内のEquity.Indexを一括Update
         """
         indices_dict = self.config_dict["Equity"]["Index"]
         for country_code, symbols in indices_dict.items():
@@ -49,6 +49,8 @@ class InvestingSaver(SaverBase):
 
 
     def update_bonds(self):
+        """ config.yaml内のBondsを一括Update
+        """
         bonds_list = self.config_dict["Bond"]
         for country_code, symbols in bonds_dict.items():
             for symbol in symbols:
@@ -64,6 +66,8 @@ class InvestingSaver(SaverBase):
 
 
     def update_currencies(self):
+        """ config.yaml内のCurrencyを一括Update
+        """
         currency_dict = self.config_dict["Currency"]
         for currency_code, symbols in currency_dict.items():
             for symbol in symbols:
@@ -71,21 +75,6 @@ class InvestingSaver(SaverBase):
                 folder_path = "{}/{}/{}/{}/".format(
                     self.homedir, "Currency",
                     currency_code, symbol
-                )
-                # Daily
-                self.mkdir(folder_path + "Daily")
-                self._get_daily_ohlcv(symbol, folder_path + "Daily")
-                time.sleep(1)
-
-
-    def get_equity_indices(self):
-        bonds_list = self.config_dict["Bond"]
-        for country_code, symbols in bonds_dict.items():
-            for symbol in symbols:
-                # folder_path作成: home/Bond/JP/Japan 10Y/
-                folder_path = "{}/{}/{}/{}/".format(
-                    self.homedir, "Bond",
-                    country_code, symbol
                 )
                 # Daily
                 self.mkdir(folder_path + "Daily")

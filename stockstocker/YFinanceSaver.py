@@ -32,7 +32,7 @@ class YFinanceSaver(SaverBase):
 
 
     def update_equites(self):
-        """ config.yaml内のEquityの一括download
+        """ config.yaml内のEquity.Indivisualの一括download
         """
         equity_list = self.config_dict["Equity"]["Indivisual"]
         for symbol in equity_list:
@@ -54,7 +54,7 @@ class YFinanceSaver(SaverBase):
 
 
     def update_equity_indices(self):
-        """ config.yaml内のEquityの一括download
+        """ config.yaml内のEquity.Indexの一括download
         """
         indices_dist = self.config_dict["Equity"]["Index"]
         for country_code, symbols in indices_dict.items():
