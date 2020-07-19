@@ -28,11 +28,32 @@ class YFinanceSaver:
     def get_equites(self):
         """ config.yaml内のEquityの一括download
         """
-        equity_list = self.config_dict["Equity"]
+        equity_list = self.config_dict["Equity"]["Indivisual"]
         for symbol in equity_list:
-            # folder_path作成: home/Equity/JP/TM.T/
-            folder_path = "{}/{}/{}/{}/".format(
-                self.homedir, "Equity", self._get_equity_country_code(symbol).name, symbol
+            # folder_path作成: home/Equity/Indivisual/JP/TM.T/
+            folder_path = "{}/{}/{}/{}/{}/".format(
+                self.homedir, "Equity", "Indivisual"
+                self._get_equity_country_code(symbol).name, symbol
+            )
+            # Daily
+            self.mkdir(folder_path + "Daily")
+            self._get_daily_ohlcv(folder_path + "Daily", symbol)
+            # Intraday
+            self.mkdir(folder_path + "Intraday")
+            self._get_1min_ohlcv(folder_path + "Intraday", symbol)
+            # Info
+            self.mkdir(folder_path + "Info")
+            self._get_symbol_info(folder_path + "Info", symbol)
+            time.sleep(1)
+
+
+    def get_equity_indices(self):
+        indices_list = self.config_dict["Equity"]["Index"]
+        for symbol in indices_list:
+            # folder_path作成: home/Equity/Indivisual/JP/TM.T/
+            folder_path = "{}/{}/{}/{}/{}/".format(
+                self.homedir, "Equity", "Index"
+                self._get_equity_country_code(symbol).name, symbol
             )
             # Daily
             self.mkdir(folder_path + "Daily")

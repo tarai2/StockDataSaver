@@ -42,7 +42,7 @@ class NumeraiStockUpdater:
 
             # 取得
             main_stock_ids = self.get_main_stock_id()
-            config_yaml["yfinance"]["Equity"] = main_stock_ids
+            config_yaml["yfinance"]["Equity"]["Indivisual"] = main_stock_ids
 
             # 書込
             with open(dirname(__file__) + "/config.yaml", "w") as file:
