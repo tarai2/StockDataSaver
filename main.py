@@ -1,8 +1,17 @@
 import time
+import datetime
+import os
+import logging
+import logging.handlers
+from os.path import dirname
 from stockstocker import NumeraiStockUpdater, InvestingSaver, YFinanceSaver
 
 
 def setLogger(obj):
+
+    if not os.path.exists(dirname(__file__) + '/logs'):
+        os.mkdir(dirname(__file__) + "/logs")
+
     timeHandler = logging.handlers.TimedRotatingFileHandler(
         filename=dirname(__file__) + '/logs/updater.log',
         atTime=datetime.time(0),
