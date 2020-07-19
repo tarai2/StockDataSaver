@@ -8,7 +8,7 @@ import logging.handlers
 import datetime
 import numpy as np
 import pandas as pd
-from default_config import config_dict
+from stockstocker import default_config
 
 from os.path import dirname
 
@@ -19,15 +19,16 @@ class NumeraiStockUpdater:
         self.logger = logging.getLogger(__name__)
         self.prepare_config(dirname(__file__) + "/config.yaml")
 
+
     @staticmethod
-    def prepare_config(self, filepath):
+    def prepare_config(filepath):
         """ config.yamlが存在しない場合, default_config.yamlから生成
         Args:
             filepath (str): ./*/config.yaml
         """
         if not os.path.exists(filepath):
             with open(filepath, "w") as file:
-                yaml.dump(config_dict, file, indent=4)
+                yaml.dump(default_config, file, indent=4)
 
 
     def refresh(self):
@@ -39,7 +40,7 @@ class NumeraiStockUpdater:
                 config_yaml = yaml.load(file)
 
             # 取得
-            main_stock_ids = self.get_main_stock_id()
+            main_stock_ids = self._get_main_stock_id()
             config_yaml["yfinance"]["Equity"]["Indivisual"] = main_stock_ids
 
             # 書込

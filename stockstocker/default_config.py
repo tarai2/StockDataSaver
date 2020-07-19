@@ -1,4 +1,4 @@
-config_dict = {
+default_config = {
     "homedir": "./",
     "investing.com": {
         "Bond": {

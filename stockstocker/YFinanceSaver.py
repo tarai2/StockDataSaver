@@ -11,7 +11,7 @@ import datetime
 from glob import glob
 from os.path import dirname
 from stockstocker.SaverBase import SaverBase
-import NumeraiStockUpdater
+from stockstocker import NumeraiStockUpdater
 
 Day1 = datetime.timedelta(1)
 
