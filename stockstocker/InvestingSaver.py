@@ -11,6 +11,7 @@ import datetime
 from glob import glob
 from os.path import dirname
 from stockstocker.SaverBase import SaverBase
+import NumeraiStockUpdater
 
 Day1 = datetime.timedelta(1)
 
@@ -18,6 +19,10 @@ Day1 = datetime.timedelta(1)
 class InvestingSaver(SaverBase):
 
     def __init__(self):
+        NumeraiStockUpdater.prepare_config(
+            os.path.dirname(__file__) + "/config.yaml"
+        )
+
         self.logger = logging.getLogger(__name__)
         with open(os.path.dirname(__file__) + "/config.yaml") as file:
             config_yaml = yaml.load(file)
@@ -25,6 +30,7 @@ class InvestingSaver(SaverBase):
             self.config_dict = config_yaml["investing.com"]
             self.logger.info("loaded config.yaml")
 
+    def get_
 
     def _get_daily_ohlcv(self, symbol, folder_path):
         """ symbolのDailyOHLCVをupdate.

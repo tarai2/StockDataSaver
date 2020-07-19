@@ -8,6 +8,7 @@ import logging.handlers
 import datetime
 import numpy as np
 import pandas as pd
+from default_config import config_dict
 
 from os.path import dirname
 
@@ -18,18 +19,15 @@ class NumeraiStockUpdater:
         self.logger = logging.getLogger(__name__)
         self.prepare_config(dirname(__file__) + "/config.yaml")
 
-
+    @staticmethod
     def prepare_config(self, filepath):
         """ config.yamlが存在しない場合, default_config.yamlから生成
         Args:
             filepath (str): ./*/config.yaml
         """
         if not os.path.exists(filepath):
-            with open(dirname(__file__) + "/default_config.yaml") as file:
-                default_config = yaml.load(file)
             with open(filepath, "w") as file:
-                yaml.dump(default_config, file, indent=4)
-                self.logger.info("initialize config.yaml")
+                yaml.dump(config_dict, file, indent=4)
 
 
     def refresh(self):
@@ -53,7 +51,7 @@ class NumeraiStockUpdater:
             self.logger.exception(e, exc_info=True)
 
 
-    def get_main_stock_id(self):
+    def _get_main_stock_id(self):
         """ numerai signal 予測対象銘柄からメイン地域の銘柄idを抽出し、Yahoo!Financeで使用されている銘柄コードに変換して返す
         Returns:
             list(str): 対象銘柄の配列

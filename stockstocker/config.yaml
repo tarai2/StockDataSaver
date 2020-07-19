@@ -71,7 +71,13 @@ yfinance:
         Wheat: [W=F]
     Equity: 
         Index:
-            [^GSPC, ^N225, ^FTSE, ^GDAXI, ^KOSPI, ^VIX]
+            AU: []
+            DE: [^GDAXI]
+            FR: []
+            JP: [^N225]
+            KS: [^KOSPI]
+            UK: [^FTSE]
+            US: [^GSPC, ^VIX]
         Indivisual:
             [060980.KS, 108320.KS, 128940.KS, 122990.KS, 057050.KS, 096530.KS, 081660.KS,
             069080.KS, 119860.KS, 011210.KS, 020150.KS, 139130.KS, 138930.KS, 139480.KS,

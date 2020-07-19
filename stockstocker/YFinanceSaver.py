@@ -11,6 +11,7 @@ import datetime
 from glob import glob
 from os.path import dirname
 from stockstocker.SaverBase import SaverBase
+import NumeraiStockUpdater
 
 Day1 = datetime.timedelta(1)
 
@@ -18,6 +19,10 @@ Day1 = datetime.timedelta(1)
 class YFinanceSaver(SaverBase):
 
     def __init__(self):
+        NumeraiStockUpdater.prepare_config(
+            os.path.dirname(__file__) + "/config.yaml"
+        )
+
         self.logger = logging.getLogger(__name__)
         with open(os.path.dirname(__file__) + "/config.yaml") as file:
             config_yaml = yaml.load(file)
@@ -52,22 +57,23 @@ class YFinanceSaver(SaverBase):
         """ config.yaml内のEquityの一括download
         """
         indices_list = self.config_dict["Equity"]["Index"]
-        for symbol in indices_list:
-            # folder_path作成: home/Equity/Indivisual/JP/TM.T/
-            folder_path = "{}/{}/{}/{}/{}/".format(
-                self.homedir, "Equity", "Index",
-                self._get_equity_country_code(symbol).name, symbol
-            )
-            # Daily
-            self.mkdir(folder_path + "Daily")
-            self._get_daily_ohlcv(folder_path + "Daily", symbol)
-            # Intraday
-            self.mkdir(folder_path + "Intraday")
-            self._get_1min_ohlcv(folder_path + "Intraday", symbol)
-            # Info
-            self.mkdir(folder_path + "Info")
-            self._get_symbol_info(folder_path + "Info", symbol)
-            time.sleep(1)
+        for country_code, symbols in commodity_dict.items():
+            for symbol in symbols:
+                # folder_path作成: home/Equity/Index/JP/N225/
+                folder_path = "{}/{}/{}/{}/{}/".format(
+                    self.homedir, "Equity", "Index",
+                    country_code, symbol
+                )
+                # Daily
+                self.mkdir(folder_path + "Daily")
+                self._get_daily_ohlcv(folder_path + "Daily", symbol)
+                # Intraday
+                self.mkdir(folder_path + "Intraday")
+                self._get_1min_ohlcv(folder_path + "Intraday", symbol)
+                # Info
+                self.mkdir(folder_path + "Info")
+                self._get_symbol_info(folder_path + "Info", symbol)
+                time.sleep(1)
 
 
     def get_commodities(self):
@@ -76,7 +82,7 @@ class YFinanceSaver(SaverBase):
         commodity_dict = self.config_dict["Commodity"]
         for commodity_product, symbols in commodity_dict.items():
             for symbol in symbols:
-                # folder_path作成: home/Commodity/Gold/GC=F
+                # folder_path作成: home/Commodity/Gold/GC=F/
                 folder_path = "{}/{}/{}/{}/".format(
                     self.homedir, "Commodity", commodity_product, symbol
                 )
