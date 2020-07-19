@@ -201,6 +201,7 @@ class YFinanceSaver(SaverBase):
             yfTicker = yf.Ticker(symbol)
             latest_date = self._get_latest_date(folder_path, "csv")
             # 作成
+            try:
             diff = pd.DataFrame(
                 [yfTicker.info],
                 index=pd.DatetimeIndex([datetime.date.today()], name="FetchDate")
@@ -218,6 +219,8 @@ class YFinanceSaver(SaverBase):
                 self.logger.info("'{}' Daily INFO was updated.".format(symbol))
         except KeyboardInterrupt:
             sys.exit()
+        except IndexError as e:
+            self.logger.exception("sorry '{}' has no info".format(symbol))
         except Exception as e:
             self.logger.exception("Error in Updating Daily INFO '{}'".format(symbol))
             self.logger.exception(e, exc_info=True)
