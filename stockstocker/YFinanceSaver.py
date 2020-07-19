@@ -201,7 +201,6 @@ class YFinanceSaver(SaverBase):
             yfTicker = yf.Ticker(symbol)
             latest_date = self._get_latest_date(folder_path, "csv")
             # 作成
-            try:
             diff = pd.DataFrame(
                 [yfTicker.info],
                 index=pd.DatetimeIndex([datetime.date.today()], name="FetchDate")
