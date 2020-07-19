@@ -40,7 +40,7 @@ class InvestingSaver(SaverBase):
                 # folder_path作成: home/Equity/Index/JP/N225/
                 folder_path = "{}/{}/{}/{}/{}/".format(
                     self.homedir, "Equity", "Index",
-                    country_code, symbol.replace("/","_")
+                    country_code, symbol.replace("/","_").replace(" ", "_")
                 )
                 # Daily
                 self.mkdir(folder_path + "Daily")
@@ -51,13 +51,13 @@ class InvestingSaver(SaverBase):
     def update_bonds(self):
         """ config.yaml内のBondsを一括Update
         """
-        bonds_list = self.config_dict["Bond"]
+        bonds_dict = self.config_dict["Bond"]
         for country_code, symbols in bonds_dict.items():
             for symbol in symbols:
                 # folder_path作成: home/Bond/JP/Japan 10Y/
                 folder_path = "{}/{}/{}/{}/".format(
                     self.homedir, "Bond",
-                    country_code, symbol
+                    country_code, symbol.replace(" ", "_")
                 )
                 # Daily
                 self.mkdir(folder_path + "Daily")
@@ -74,7 +74,7 @@ class InvestingSaver(SaverBase):
                 # folder_path作成: home/Currency/USD/
                 folder_path = "{}/{}/{}/{}/".format(
                     self.homedir, "Currency",
-                    currency_code, symbol
+                    currency_code, symbol.replace(" ", "_")
                 )
                 # Daily
                 self.mkdir(folder_path + "Daily")

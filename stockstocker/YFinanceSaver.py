@@ -10,6 +10,7 @@ import time
 import datetime
 from glob import glob
 from os.path import dirname
+from stockstocker import Country, getCountryCode
 from stockstocker.SaverBase import SaverBase
 from stockstocker import NumeraiStockUpdater
 
@@ -56,7 +57,7 @@ class YFinanceSaver(SaverBase):
     def update_equity_indices(self):
         """ config.yaml内のEquity.Indexの一括download
         """
-        indices_dist = self.config_dict["Equity"]["Index"]
+        indices_dict = self.config_dict["Equity"]["Index"]
         for country_code, symbols in indices_dict.items():
             for symbol in symbols:
                 # folder_path作成: home/Equity/Index/JP/N225/
@@ -98,23 +99,25 @@ class YFinanceSaver(SaverBase):
                 time.sleep(1)
 
 
-    def update_forex():
+    def update_forex(self):
         """ config.yamlのForexの一括download
         """
         tenor_dict = self.config_dict["Forex"]
-        for currency_pair, symbols in tenor_dict.items():
-            for symbol in symbols:
-                # folder_path作成: home/Forex/Spot/USDJPY/USDJPY=X
-                folder_path = "{}/{}/{}/{}/".format(
-                    self.homedir, "Forex", currency_pair, symbol
-                )
-                # Daily
-                self.mkdir(folder_path + "Daily")
-                self._get_daily_ohlcv(symbol, folder_path + "Daily")
-                # Intraday
-                self.mkdir(folder_path + "Intraday")
-                self._get_1min_ohlcv(symbol, folder_path + "Intraday")
-                time.sleep(1)
+        for tenor, pair_dict in tenor_dict.items():
+            for pair, symbols in pair_dict.items():
+                for symbol in symbols:
+                    # folder_path作成: home/Forex/Spot/USDJPY/USDJPY=X
+                    folder_path = "{}/{}/{}/{}/{}/".format(
+                        self.homedir, "Forex", tenor,
+                        pair, symbol
+                    )
+                    # Daily
+                    self.mkdir(folder_path + "Daily")
+                    self._get_daily_ohlcv(symbol, folder_path + "Daily")
+                    # Intraday
+                    self.mkdir(folder_path + "Intraday")
+                    self._get_1min_ohlcv(symbol, folder_path + "Intraday")
+                    time.sleep(1)
 
 
     def _get_daily_ohlcv(self, symbol, folder_path):
@@ -128,9 +131,9 @@ class YFinanceSaver(SaverBase):
             latest_date = self._get_latest_date(folder_path)
             if latest_date is None:
                 # 新規作成
-                yfTicker\
-                    .history(period="max", interval="1d")\
-                    .to_hdf(folder_path + "/" + symbol + ".hdf", key="pandasdf")
+                df = yfTicker.history(period="max", interval="1d")
+                if df.shape[0] > 0:
+                    df.to_hdf(folder_path + "/" + symbol + ".hdf", key="pandasdf")
                 self.logger.info("'{}' Daily OHLCV was newly saved.".format(symbol))
             else:
                 # append
@@ -160,13 +163,14 @@ class YFinanceSaver(SaverBase):
                 # 新規作成
                 df = yfTicker\
                     .history(period="7d", interval="1m")
-                timezone = df.index.tz  # timezone一時保存
-                df.index = df.index.tz_localize(None)
-                for date in np.unique(df.index.date):  # index.dateするとtimezoneが落ちる.
-                    df.loc[date:date+Day1]\
-                        .tz_localize(timezone)\
-                        .to_hdf(folder_path + date.strftime("/%Y-%m-%d.hdf"), key="pandasdf")
-                self.logger.info("'{}' Intraday OHLCV was newly saved.".format(symbol))
+                if df.shape[0] > 0:
+                    timezone = df.index.tz  # timezone一時保存
+                    df.index = df.index.tz_localize(None)
+                    for date in np.unique(df.index.date):  # index.dateするとtimezoneが落ちる.
+                        df.loc[date:date+Day1]\
+                            .tz_localize(timezone)\
+                            .to_hdf(folder_path + date.strftime("/%Y-%m-%d.hdf"), key="pandasdf")
+                    self.logger.info("'{}' Intraday OHLCV was newly saved.".format(symbol))
             else:
                 # update
                 diff = yfTicker\
@@ -203,8 +207,9 @@ class YFinanceSaver(SaverBase):
             )
             if latest_date is None:
                 # 新規作成
-                diff.to_csv(folder_path + "/" + symbol + ".csv")
-                self.logger.info("'{}' Daily INFO was newly saved.".format(symbol))
+                if diff.shape[0] > 0:
+                    diff.to_csv(folder_path + "/" + symbol + ".csv")
+                    self.logger.info("'{}' Daily INFO was newly saved.".format(symbol))
             else:
                 # append
                 df = pd.read_csv(folder_path + "/" + symbol + ".csv")

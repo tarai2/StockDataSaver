@@ -142,6 +142,7 @@ default_config = {
                     "Tokyo SE TOPIX17 Automobile Stock Price"
                 ],
                 "KS": [
+                    "KOSPI 200"
                     "KOSPI 200 IT",
                     "KOSPI 200 Heavy Industries",
                     "KOSPI 200 Financials",
@@ -233,15 +234,13 @@ default_config = {
             "Index": {
                 "AU": [],
                 "DE": [
-                    "GDAXI"
+                    "^GDAXI"
                 ],
                 "FR": [],
                 "JP": [
                     "^N225"
                 ],
-                "KS": [
-                    "^KOSPI"
-                ],
+                "KS": [],
                 "UK": [
                     "^FTSE"
                 ],
@@ -250,15 +249,7 @@ default_config = {
                     "^VIX"
                 ]
             },
-            "Indivisual": {
-                "AU": [],
-                "DE": [],
-                "FR": [],
-                "JP": [],
-                "KS": [],
-                "UK": [],
-                "US": []
-            }
+            "Indivisual": []
         },
         "Forex": {
             "Forward": {
