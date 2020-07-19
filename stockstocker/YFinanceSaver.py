@@ -10,11 +10,12 @@ import time
 import datetime
 from glob import glob
 from os.path import dirname
+from stockstocker.SaverBase import SaverBase
 
 Day1 = datetime.timedelta(1)
 
 
-class YFinanceSaver:
+class YFinanceSaver(SaverBase):
 
     def __init__(self):
         self.logger = logging.getLogger(__name__)
@@ -32,7 +33,7 @@ class YFinanceSaver:
         for symbol in equity_list:
             # folder_path作成: home/Equity/Indivisual/JP/TM.T/
             folder_path = "{}/{}/{}/{}/{}/".format(
-                self.homedir, "Equity", "Indivisual"
+                self.homedir, "Equity", "Indivisual",
                 self._get_equity_country_code(symbol).name, symbol
             )
             # Daily
@@ -48,11 +49,13 @@ class YFinanceSaver:
 
 
     def get_equity_indices(self):
+        """ config.yaml内のEquityの一括download
+        """
         indices_list = self.config_dict["Equity"]["Index"]
         for symbol in indices_list:
             # folder_path作成: home/Equity/Indivisual/JP/TM.T/
             folder_path = "{}/{}/{}/{}/{}/".format(
-                self.homedir, "Equity", "Index"
+                self.homedir, "Equity", "Index",
                 self._get_equity_country_code(symbol).name, symbol
             )
             # Daily
@@ -108,7 +111,7 @@ class YFinanceSaver:
                 time.sleep(1)
 
 
-    def _get_daily_ohlcv(self, folder_path, symbol):
+    def _get_daily_ohlcv(self, symbol, folder_path):
         """ symbolのDailyOHLCVをupdate.
         Args:
             folder_path (str): e.g. home/Product/Country/Symbol/Daily
@@ -136,7 +139,7 @@ class YFinanceSaver:
             self.logger.exception(e, exc_info=True)
 
 
-    def _get_1min_ohlcv(self, folder_path, symbol):
+    def _get_1min_ohlcv(self, symbol, folder_path):
         """ symbolの1min OHLCVをupdate.
         Args:
             folder_path (str): e.g. home/Product/Country/Symbol/Intraday
@@ -174,7 +177,7 @@ class YFinanceSaver:
             self.logger.exception(e, exc_info=True)
 
 
-    def _get_symbol_info(self, folder_path, symbol):
+    def _get_symbol_info(self, symbol, folder_path):
         """ symbolのInfoをupdate.
         Args:
             folder_path (str): e.g. home/Product/Country/Symbol/Info
@@ -217,67 +220,7 @@ class YFinanceSaver:
         else:
             return Country.US
 
-    @staticmethod
-    def _get_latest_date(filedir, extention="hdf"):
-        """ ディレクトリ内のhdfファイルから, 最も新しいエントリの日時を取得
-        Args:
-            filedir (str):
-        Returns:
-            None or datetime:
-        """
-        files = sorted(glob(filedir + "/*.{}".format(extention)))
-        # ファイルがそもそも存在しない場合, None
-        if len(files) == 0:
-            return None
-        if extention == "hdf":
-            date = pd.read_hdf(files[-1], start=-1).index[-1].date()
-        elif extention == "csv":
-            date = pd.read_csv(files[-1], parse_dates=[0], index_col=[0]).index[-1].date()
-        return date
-
-    @staticmethod
-    def mkdir(folder_path):
-        """ folder_pathに至る全てのpathが存在するか確認し, なければmkdirする
-        Args:
-            folder_path (str): e.g. ./data/Equity/JP/Intraday
-        """
-        if not os.path.exists(folder_path):
-            os.makedirs(folder_path)
-
-
-def _setLogger(obj):
-    timeHandler = logging.handlers.TimedRotatingFileHandler(
-        filename=dirname(__file__) + '/logs/updater.log',
-        atTime=datetime.time(0),
-        when="MIDNIGHT",
-        backupCount=7,
-        encoding='utf-8'
-    )
-    timeHandler.setFormatter(
-        logging.Formatter(
-            '%(asctime)s.%(msecs)03d,%(levelname)s,'
-            '[%(module)s.%(funcName)s.%(name)s L%(lineno)d],%(message)s',
-            datefmt="%Y-%m-%d %H:%M:%S"
-        )
-    )
-    obj.logger.addHandler(timeHandler)
-    obj.logger.setLevel(logging.INFO)
-
 
 if __name__ == "__main__":
 
     ysaver = YFinanceSaver()
-    _setLogger(ysaver)
-
-    # symbol = "OCDO.L"
-    # folder_path = os.path.dirname(__file__) + "/Test/Equity/"
-
-    # # Daily
-    # ysaver.mkdir(folder_path + "Daily")
-    # ysaver._get_daily_ohlcv(folder_path + "Daily", symbol)
-    # # Intraday
-    # ysaver.mkdir(folder_path + "Intraday")
-    # ysaver._get_1min_ohlcv(folder_path + "Intraday", symbol)
-    # # Info
-    # ysaver.mkdir(folder_path + "Info")
-    # ysaver._get_symbol_info(folder_path + "Info", symbol)

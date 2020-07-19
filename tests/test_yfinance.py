@@ -1,6 +1,8 @@
 import pytest
 import os
-import time, datetime
+import shutil
+import time
+import datetime
 from os.path import dirname
 import logging
 import logging.handlers
@@ -27,7 +29,7 @@ def setLogger(obj):
 
 
 
-def test_get_equity():
+def test_get_daily_ohlcv():
     ysaver = YFinanceSaver()
     setLogger(ysaver)
 
@@ -37,27 +39,33 @@ def test_get_equity():
     # Daily
     ysaver.mkdir(folder_path + "Daily")
     ysaver._get_daily_ohlcv(folder_path + "Daily", symbol)
-    # Intraday
-    ysaver.mkdir(folder_path + "Intraday")
-    ysaver._get_1min_ohlcv(folder_path + "Intraday", symbol)
-    # Info
-    ysaver.mkdir(folder_path + "Info")
-    ysaver._get_symbol_info(folder_path + "Info", symbol)
+
+    shutil.rmtree(folder_path)
 
 
-def test_get_commodity():
+def test_get_1day_ohlcv():
     ysaver = YFinanceSaver()
     setLogger(ysaver)
 
-    symbol = "GC=F"
-    folder_path = os.path.dirname(__file__) + "/Test/Commodity/"
+    symbol = "OCDO.L"
+    folder_path = os.path.dirname(__file__) + "/Test/Equity/"
 
-    # Dayily
-    ysaver.mkdir(folder_path + "Daily")
-    ysaver._get_daily_ohlcv(folder_path + "Daily", symbol)
     # Intraday
     ysaver.mkdir(folder_path + "Intraday")
     ysaver._get_1min_ohlcv(folder_path + "Intraday", symbol)
+
+    shutil.rmtree(folder_path)
+
+
+def test_get_symbol_info():
+    ysaver = YFinanceSaver()
+    setLogger(ysaver)
+
+    symbol = "OCDO.L"
+    folder_path = os.path.dirname(__file__) + "/Test/Equity/"
+
     # Info
     ysaver.mkdir(folder_path + "Info")
     ysaver._get_symbol_info(folder_path + "Info", symbol)
+
+    shutil.rmtree(folder_path)
