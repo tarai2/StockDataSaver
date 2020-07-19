@@ -9,11 +9,11 @@ from stockstocker import NumeraiStockUpdater, InvestingSaver, YFinanceSaver
 
 def setLogger(obj):
 
-    if not os.path.exists(dirname(__file__) + '/logs'):
-        os.mkdir(dirname(__file__) + "/logs")
+    if not os.path.exists('logs'):
+        os.mkdir("logs")
 
     timeHandler = logging.handlers.TimedRotatingFileHandler(
-        filename=dirname(__file__) + '/logs/updater.log',
+        filename='logs/updater.log',
         atTime=datetime.time(0),
         when="MIDNIGHT",
         backupCount=7,

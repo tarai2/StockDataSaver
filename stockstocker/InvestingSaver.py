@@ -40,7 +40,7 @@ class InvestingSaver(SaverBase):
                 # folder_path作成: home/Equity/Index/JP/N225/
                 folder_path = "{}/{}/{}/{}/{}/".format(
                     self.homedir, "Equity", "Index",
-                    country_code, symbol
+                    country_code, symbol.replace("/","_")
                 )
                 # Daily
                 self.mkdir(folder_path + "Daily")
@@ -88,27 +88,30 @@ class InvestingSaver(SaverBase):
             symbol (str): e.g. US Dollar Index
             folder_path (str): e.g. home/Product/Country/Symbol/Daily
         """
-        latest_date = self._get_latest_date(folder_path)
-        search_res = investpy.search(text=symbol)
-        search_res = [r for r in search_res if r.name == symbol][0]
         try:
+            latest_date = self._get_latest_date(folder_path)
+            search_res = investpy.search(text=symbol)
+            search_res = [r for r in search_res if r.name == symbol][0]
             if latest_date is None:
                 # 新規作成
                 df = search_res.retrieve_historical_data(
                     from_date='01/01/1950',
                     to_date=datetime.date.today().strftime("%m/%d/%Y")
                 )
-                df.to_hdf(folder_path + "/" + symbol + ".hdf", key="pandasdf")
-                self.logger.info("{} Daily OHLCV was saved.".format(symbol))
+                df.to_hdf(folder_path + "/" + symbol.replace("/","_") + ".hdf", key="pandasdf")
+                self.logger.info("'{}' Daily OHLCV was newly saved.".format(symbol))
             else:
                 # append
                 diff = search_res.retrieve_historical_data(
                     from_date=latest_date.strftime("%m/%d/%Y"),
                     to_date=datetime.date.today().strftime("%m/%d/%Y")
                 )
-                df = pd.read_hdf(folder_path + "/" + symbol + ".hdf")
-                df.append(diff).to_hdf(folder_path + "/" + symbol + ".hdf", key="pandasdf")
-                self.logger.info("{} Daily OHLCV was updated.".format(symbol))
+                df = pd.read_hdf(folder_path + "/" + symbol.replace("/","_") + ".hdf")
+                df.append(diff)\
+                  .to_hdf(folder_path + "/" + symbol.replace("/","_") + ".hdf", key="pandasdf")
+                self.logger.info("'{}' Daily OHLCV was updated.".format(symbol))
+        except KeyboardInterrupt:
+            sys.exit()
         except Exception as e:
-            self.logger.exception("Error in downloading Daily {} OHLCV".format(symbol))
+            self.logger.exception("Error in downloading Daily '{}' OHLCV".format(symbol))
             self.logger.exception(e, exc_info=True)

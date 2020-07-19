@@ -123,15 +123,15 @@ class YFinanceSaver(SaverBase):
             folder_path (str): e.g. home/Product/Country/Symbol/Daily
             symbol (str): e.g. TOYOTA.T
         """
-        yfTicker = yf.Ticker(symbol)
-        latest_date = self._get_latest_date(folder_path)
         try:
+            yfTicker = yf.Ticker(symbol)
+            latest_date = self._get_latest_date(folder_path)
             if latest_date is None:
                 # 新規作成
                 yfTicker\
                     .history(period="max", interval="1d")\
                     .to_hdf(folder_path + "/" + symbol + ".hdf", key="pandasdf")
-                self.logger.info("{} Daily OHLCV was saved.".format(symbol))
+                self.logger.info("'{}' Daily OHLCV was newly saved.".format(symbol))
             else:
                 # append
                 diff = yfTicker\
@@ -139,9 +139,11 @@ class YFinanceSaver(SaverBase):
                              end=datetime.datetime.now().strftime("%Y-%m-%d"))
                 df = pd.read_hdf(folder_path + "/" + symbol + ".hdf")
                 df.append(diff).to_hdf(folder_path + "/" + symbol + ".hdf", key="pandasdf")
-                self.logger.info("{} Daily OHLCV was updated.".format(symbol))
+                self.logger.info("'{}' Daily OHLCV was updated.".format(symbol))
+        except KeyboardInterrupt:
+            sys.exit()
         except Exception as e:
-            self.logger.exception("Error in downloading Daily {} OHLCV".format(symbol))
+            self.logger.exception("Error in downloading Daily '{}' OHLCV".format(symbol))
             self.logger.exception(e, exc_info=True)
 
 
@@ -151,9 +153,9 @@ class YFinanceSaver(SaverBase):
             folder_path (str): e.g. home/Product/Country/Symbol/Intraday
             symbol (str): e.g. TOYOTA.T
         """
-        yfTicker = yf.Ticker(symbol)
-        latest_date = self._get_latest_date(folder_path)
         try:
+            yfTicker = yf.Ticker(symbol)
+            latest_date = self._get_latest_date(folder_path)
             if latest_date is None:
                 # 新規作成
                 df = yfTicker\
@@ -164,7 +166,7 @@ class YFinanceSaver(SaverBase):
                     df.loc[date:date+Day1]\
                         .tz_localize(timezone)\
                         .to_hdf(folder_path + date.strftime("/%Y-%m-%d.hdf"), key="pandasdf")
-                self.logger.info("{} Intraday OHLCV was saved.".format(symbol))
+                self.logger.info("'{}' Intraday OHLCV was newly saved.".format(symbol))
             else:
                 # update
                 diff = yfTicker\
@@ -177,9 +179,11 @@ class YFinanceSaver(SaverBase):
                     diff.loc[date:date+Day1]\
                         .tz_localize(timezone)\
                         .to_hdf(folder_path + date.strftime("/%Y-%m-%d.hdf"), key="pandasdf")
-                self.logger.info("{} Intraday OHLCV was updated.".format(symbol))
+                self.logger.info("'{}' Intraday OHLCV was updated.".format(symbol))
+        except KeyboardInterrupt:
+            sys.exit()
         except Exception as e:
-            self.logger.exception("Error in downloading Intraday {} OHLCV".format(symbol))
+            self.logger.exception("Error in downloading Intraday '{}' OHLCV".format(symbol))
             self.logger.exception(e, exc_info=True)
 
 
@@ -189,9 +193,9 @@ class YFinanceSaver(SaverBase):
             folder_path (str): e.g. home/Product/Country/Symbol/Info
             symbol (str): e.g. TOYOTA.T
         """
-        yfTicker = yf.Ticker(symbol)
-        latest_date = self._get_latest_date(folder_path, "csv")
         try:
+            yfTicker = yf.Ticker(symbol)
+            latest_date = self._get_latest_date(folder_path, "csv")
             # 作成
             diff = pd.DataFrame(
                 [yfTicker.info],
@@ -200,15 +204,17 @@ class YFinanceSaver(SaverBase):
             if latest_date is None:
                 # 新規作成
                 diff.to_csv(folder_path + "/" + symbol + ".csv")
-                self.logger.info("{} Daily INFO was saved.".format(symbol))
+                self.logger.info("'{}' Daily INFO was newly saved.".format(symbol))
             else:
                 # append
                 df = pd.read_csv(folder_path + "/" + symbol + ".csv")
                 df.append(diff).to_csv(folder_path + "/" + symbol + ".csv")
                 diff.to_csv(folder_path + "/" + symbol + ".csv")
-                self.logger.info("{} Daily INFO was updated.".format(symbol))
+                self.logger.info("'{}' Daily INFO was updated.".format(symbol))
+        except KeyboardInterrupt:
+            sys.exit()
         except Exception as e:
-            self.logger.exception("Error in Updating Daily INFO {}".format(symbol))
+            self.logger.exception("Error in Updating Daily INFO '{}'".format(symbol))
             self.logger.exception(e, exc_info=True)
 
 
