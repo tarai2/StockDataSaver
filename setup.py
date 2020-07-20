@@ -27,11 +27,11 @@ def load_links_from_file(filepath):
     return res
 
 # 無理やりinstall
-# subprocess.call("pip install --ignore-installed git+https://github.com/tarai2/investpy.git")
+# pip install --ignore-installed git+https://github.com/tarai2/investpy.git
 
 setup(
     name="stockstocker",
-    version="0.0.0",
+    version="0.0.1",
     packages=['stockstocker'],  # import可能な名前空間を指定
     package_dir={'stockstocker': 'stockstocker'},  # 名前空間とディレクトリstockstockerの対応
     install_requires=load_requires_from_file("requirements.txt"),
