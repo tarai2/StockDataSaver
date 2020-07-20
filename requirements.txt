@@ -1,5 +1,5 @@
 numpy==1.17.3
 pandas
--e git+https://github.com/tarai2/investpy.git
+-e git+https://github.com/tarai2/investpy.git#egg=investpy-0.9.14
 yfinance
 pyyaml

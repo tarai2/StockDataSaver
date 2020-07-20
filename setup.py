@@ -34,5 +34,5 @@ setup(
     packages=['stockstocker'],  # import可能な名前空間を指定
     package_dir={'stockstocker': 'stockstocker'},  # 名前空間とディレクトリstockstockerの対応
     install_requires=load_requires_from_file("requirements.txt"),
-    dependency_links=load_links_from_file("requirements.txt"),
+    dependency_links=load_links_from_file("requirements.txt")
 )
