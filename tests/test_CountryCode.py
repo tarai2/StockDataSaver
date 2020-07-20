@@ -1,6 +1,6 @@
 import pytest
 from stockstocker import Country, getCountryCode
-from stockstocker import YFinanceSaver
+from stockstocker import YFinanceSaver, InvestingSaver
 
 
 def test_getCountryCode():
