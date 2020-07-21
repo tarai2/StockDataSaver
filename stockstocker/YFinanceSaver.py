@@ -186,6 +186,8 @@ class YFinanceSaver(SaverBase):
                 self.logger.info("'{}' Intraday OHLCV was updated.".format(symbol))
         except KeyboardInterrupt:
             sys.exit()
+        except AttributeError as e:
+            self.logger.info("Sorry, '{}' seems to have no 1min OHLCV".format(symbol))
         except Exception as e:
             self.logger.exception("Error in downloading Intraday '{}' OHLCV".format(symbol))
             self.logger.exception(e, exc_info=True)
@@ -219,7 +221,7 @@ class YFinanceSaver(SaverBase):
         except KeyboardInterrupt:
             sys.exit()
         except IndexError as e:
-            self.logger.exception("sorry '{}' has no info".format(symbol))
+            self.logger.info("Sorry, '{}' seems to have no info".format(symbol))
         except Exception as e:
             self.logger.exception("Error in Updating Daily INFO '{}'".format(symbol))
             self.logger.exception(e, exc_info=True)
