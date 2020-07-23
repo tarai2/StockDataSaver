@@ -222,6 +222,10 @@ class YFinanceSaver(SaverBase):
             sys.exit()
         except IndexError as e:
             self.logger.info("Sorry, '{}' seems to have no info".format(symbol))
+        except ValueError as e:
+            self.logger.info("Sorry, '{}' seems to have no info".format(symbol))
+        except KeyError as e:
+            self.logger.info("Sorry, '{}' seems to have no info".format(symbol))
         except Exception as e:
             self.logger.exception("Error in Updating Daily INFO '{}'".format(symbol))
             self.logger.exception(e, exc_info=True)
