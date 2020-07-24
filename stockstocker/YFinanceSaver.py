@@ -1,6 +1,7 @@
 import sys
 import os
 import yaml
+import json
 import logging
 import logging.handlers
 import numpy as np
@@ -145,6 +146,8 @@ class YFinanceSaver(SaverBase):
                 self.logger.info("'{}' Daily OHLCV was updated.".format(symbol))
         except KeyboardInterrupt:
             sys.exit()
+        except json.JSONDecodeError as e:
+            self.logger.info("Sorry, '{}' seems to have no Daily OHLCV".format(symbol))
         except Exception as e:
             self.logger.exception("Error in downloading Daily '{}' OHLCV".format(symbol))
             self.logger.exception(e, exc_info=True)
@@ -188,6 +191,8 @@ class YFinanceSaver(SaverBase):
             sys.exit()
         except AttributeError as e:
             self.logger.info("Sorry, '{}' seems to have no 1min OHLCV".format(symbol))
+        except json.JSONDecodeError as e:
+            self.logger.info("Sorry, '{}' seems to have no 1min OHLCV".format(symbol))
         except Exception as e:
             self.logger.exception("Error in downloading Intraday '{}' OHLCV".format(symbol))
             self.logger.exception(e, exc_info=True)
@@ -220,6 +225,8 @@ class YFinanceSaver(SaverBase):
                 self.logger.info("'{}' Daily INFO was updated.".format(symbol))
         except KeyboardInterrupt:
             sys.exit()
+        except json.JSONDecodeError as e:
+            self.logger.info("Sorry, '{}' seems to have no info")
         except IndexError as e:
             self.logger.info("Sorry, '{}' seems to have no info".format(symbol))
         except ValueError as e:
