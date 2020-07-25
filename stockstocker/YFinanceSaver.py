@@ -9,6 +9,7 @@ import pandas as pd
 import yfinance as yf
 import time
 import datetime
+import urllib
 from glob import glob
 from os.path import dirname
 from stockstocker import Country, getCountryCode
@@ -32,6 +33,7 @@ class YFinanceSaver(SaverBase):
             self.config_dict = config_yaml["yfinance"]
             self.logger.info("loaded config.yaml")
 
+        self.permitRetry = True
 
     def update_equites(self):
         """ config.yaml内のEquity.Indivisualの一括download
@@ -144,10 +146,19 @@ class YFinanceSaver(SaverBase):
                 df = pd.read_hdf(folder_path + "/" + symbol + ".hdf")
                 df.append(diff).to_hdf(folder_path + "/" + symbol + ".hdf", key="pandasdf")
                 self.logger.info("'{}' Daily OHLCV was updated.".format(symbol))
+            self.permitRetry = True
         except KeyboardInterrupt:
             sys.exit()
         except json.JSONDecodeError as e:
             self.logger.info("Sorry, '{}' seems to have no Daily OHLCV".format(symbol))
+        except urllib.error.HTTPError as e:
+            if self.permitRetry:
+                self.logger.info("HTTPError ... Retry")
+                self.permitRetry = False
+                time.sleep(2)
+                self._get_daily_ohlcv(symbol, folder_path)
+            else:
+                self.logger.info("Maximum Retry counts exceeded in HTTPError at '{}'".format(symbol))
         except Exception as e:
             self.logger.exception("Error in downloading Daily '{}' OHLCV".format(symbol))
             self.logger.exception(e, exc_info=True)
@@ -187,12 +198,21 @@ class YFinanceSaver(SaverBase):
                         .tz_localize(timezone)\
                         .to_hdf(folder_path + date.strftime("/%Y-%m-%d.hdf"), key="pandasdf")
                 self.logger.info("'{}' Intraday OHLCV was updated.".format(symbol))
+            self.permitRetry = True
         except KeyboardInterrupt:
             sys.exit()
         except AttributeError as e:
             self.logger.info("Sorry, '{}' seems to have no 1min OHLCV".format(symbol))
         except json.JSONDecodeError as e:
             self.logger.info("Sorry, '{}' seems to have no 1min OHLCV".format(symbol))
+        except urllib.error.HTTPError as e:
+            if self.permitRetry:
+                self.logger.info("HTTPError ... Retry")
+                self.permitRetry = False
+                time.sleep(2)
+                self._get_1min_ohlcv(symbol, folder_path)
+            else:
+                self.logger.info("Maximum Retry counts exceeded in HTTPError at '{}'".format(symbol))
         except Exception as e:
             self.logger.exception("Error in downloading Intraday '{}' OHLCV".format(symbol))
             self.logger.exception(e, exc_info=True)
@@ -223,6 +243,7 @@ class YFinanceSaver(SaverBase):
                 df.append(diff).to_csv(folder_path + "/" + symbol + ".csv")
                 diff.to_csv(folder_path + "/" + symbol + ".csv")
                 self.logger.info("'{}' Daily INFO was updated.".format(symbol))
+            self.permitRetry = True
         except KeyboardInterrupt:
             sys.exit()
         except json.JSONDecodeError as e:
@@ -233,6 +254,14 @@ class YFinanceSaver(SaverBase):
             self.logger.info("Sorry, '{}' seems to have no info".format(symbol))
         except KeyError as e:
             self.logger.info("Sorry, '{}' seems to have no info".format(symbol))
+        except urllib.error.HTTPError as e:
+            if self.permitRetry:
+                self.logger.info("HTTPError ... Retry")
+                self.permitRetry = False
+                time.sleep(2)
+                self._get_symbol_info(symbol, folder_path)
+            else:
+                self.logger.info("Maximum Retry counts exceeded in HTTPError at '{}'".format(symbol))
         except Exception as e:
             self.logger.exception("Error in Updating Daily INFO '{}'".format(symbol))
             self.logger.exception(e, exc_info=True)
