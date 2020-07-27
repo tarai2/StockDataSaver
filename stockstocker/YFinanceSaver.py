@@ -256,7 +256,7 @@ class YFinanceSaver(SaverBase):
             self.logger.info("Sorry, '{}' seems to have no info".format(symbol))
         except urllib.error.HTTPError as e:
             if self.permitRetry:
-                self.logger.info("HTTPError ... Retry")
+                self.logger.info("HTTPError at {} ... Retry".format(symbol))
                 self.permitRetry = False
                 time.sleep(2)
                 self._get_symbol_info(symbol, folder_path)

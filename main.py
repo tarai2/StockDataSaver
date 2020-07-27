@@ -7,25 +7,25 @@ from os.path import dirname
 from stockstocker import NumeraiStockUpdater, InvestingSaver, YFinanceSaver
 
 
-def setLogger(obj):
+# Logger Config
+timeHandler = logging.handlers.TimedRotatingFileHandler(
+    filename='logs/updater.log',
+    atTime=datetime.time(0),
+    when="MIDNIGHT",
+    backupCount=7,
+    encoding='utf-8'
+)
+timeHandler.setFormatter(
+    logging.Formatter(
+        '%(asctime)s.%(msecs)03d,%(levelname)s,'
+        '[%(module)s.%(funcName)s.%(name)s L%(lineno)d],%(message)s',
+        datefmt="%Y-%m-%d %H:%M:%S"
+    )
+)
 
+def setLogger(obj):
     if not os.path.exists('logs'):
         os.mkdir("logs")
-
-    timeHandler = logging.handlers.TimedRotatingFileHandler(
-        filename='logs/updater.log',
-        atTime=datetime.time(0),
-        when="MIDNIGHT",
-        backupCount=7,
-        encoding='utf-8'
-    )
-    timeHandler.setFormatter(
-        logging.Formatter(
-            '%(asctime)s.%(msecs)03d,%(levelname)s,'
-            '[%(module)s.%(funcName)s.%(name)s L%(lineno)d],%(message)s',
-            datefmt="%Y-%m-%d %H:%M:%S"
-        )
-    )
     obj.logger.addHandler(timeHandler)
     obj.logger.setLevel(logging.INFO)
 
