@@ -7,25 +7,25 @@ from os.path import dirname
 from stockstocker import NumeraiStockUpdater, InvestingSaver, YFinanceSaver
 
 
-# Logger Config
-timeHandler = logging.handlers.TimedRotatingFileHandler(
-    filename='logs/updater.log',
-    atTime=datetime.time(0),
-    when="MIDNIGHT",
-    backupCount=7,
-    encoding='utf-8'
-)
-timeHandler.setFormatter(
-    logging.Formatter(
-        '%(asctime)s.%(msecs)03d,%(levelname)s,'
-        '[%(module)s.%(funcName)s.%(name)s L%(lineno)d],%(message)s',
-        datefmt="%Y-%m-%d %H:%M:%S"
-    )
-)
-
-def setLogger(obj):
+def setLogger(obj, logname):
     if not os.path.exists('logs'):
         os.mkdir("logs")
+    
+    # Logger Config
+    timeHandler = logging.handlers.TimedRotatingFileHandler(
+        filename=f'logs/{logname}.log',
+        atTime=datetime.time(0),
+        when="MIDNIGHT",
+        backupCount=7,
+        encoding='utf-8'
+    )
+    timeHandler.setFormatter(
+        logging.Formatter(
+            '%(asctime)s.%(msecs)03d,%(levelname)s,'
+            '[%(module)s.%(funcName)s.%(name)s L%(lineno)d],%(message)s',
+            datefmt="%Y-%m-%d %H:%M:%S"
+        )
+    )
     obj.logger.addHandler(timeHandler)
     obj.logger.setLevel(logging.INFO)
 
@@ -34,9 +34,9 @@ if __name__ == "__main__":
     numerai = NumeraiStockUpdater()
     yfinance = YFinanceSaver()
     investing = InvestingSaver()
-    setLogger(numerai)
-    setLogger(yfinance)
-    setLogger(investing)
+    setLogger(numerai, "numerai")
+    setLogger(yfinance, "yahoo")
+    setLogger(investing, "investing")
 
     # 銘柄コードupdate
     numerai.refresh()

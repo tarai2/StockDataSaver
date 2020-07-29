@@ -48,9 +48,11 @@ class YFinanceSaver(SaverBase):
             # Daily
             self.mkdir(folder_path + "Daily")
             self._get_daily_ohlcv(symbol, folder_path + "Daily")
+            time.sleep(1)
             # Intraday
             self.mkdir(folder_path + "Intraday")
             self._get_1min_ohlcv(symbol, folder_path + "Intraday")
+            time.sleep(1)
             # Info
             self.mkdir(folder_path + "Info")
             self._get_symbol_info(symbol, folder_path + "Info")
@@ -71,9 +73,11 @@ class YFinanceSaver(SaverBase):
                 # Daily
                 self.mkdir(folder_path + "Daily")
                 self._get_daily_ohlcv(symbol, folder_path + "Daily")
+                time.sleep(1)
                 # Intraday
                 self.mkdir(folder_path + "Intraday")
                 self._get_1min_ohlcv(symbol, folder_path + "Intraday")
+                time.sleep(1)
                 # Info
                 self.mkdir(folder_path + "Info")
                 self._get_symbol_info(symbol, folder_path + "Info")
@@ -93,9 +97,11 @@ class YFinanceSaver(SaverBase):
                 # Daily
                 self.mkdir(folder_path + "Daily")
                 self._get_daily_ohlcv(symbol, folder_path + "Daily")
+                time.sleep(1)
                 # Intraday
                 self.mkdir(folder_path + "Intraday")
                 self._get_1min_ohlcv(symbol, folder_path + "Intraday")
+                time.sleep(1)
                 # Info
                 self.mkdir(folder_path + "Info")
                 self._get_symbol_info(symbol, folder_path + "Info")
@@ -117,6 +123,7 @@ class YFinanceSaver(SaverBase):
                     # Daily
                     self.mkdir(folder_path + "Daily")
                     self._get_daily_ohlcv(symbol, folder_path + "Daily")
+                    time.sleep(1)
                     # Intraday
                     self.mkdir(folder_path + "Intraday")
                     self._get_1min_ohlcv(symbol, folder_path + "Intraday")
