@@ -25,6 +25,8 @@ class NumeraiStockUpdater:
         """ config.yamlが存在しない場合, default_config.yamlから生成
         Args:
             filepath (str): ./*/config.yaml
+        Effects:
+            config.yaml
         """
         if not os.path.exists(filepath):
             with open(filepath, "w") as file:
@@ -33,15 +35,18 @@ class NumeraiStockUpdater:
 
     def refresh(self):
         """ 同ディレクトリにあるconfigのyfinance項目を更新
+        Effects:
+            config.yaml
         """
         try:
             # 読込
             with open(dirname(__file__) + "/config.yaml") as file:
                 config_yaml = yaml.load(file)
 
-            # 取得
+            # numeraiから追加銘柄取得
             main_stock_ids = self._get_main_stock_id()
-            config_yaml["yfinance"]["Equity"]["Indivisual"] = main_stock_ids
+            config_yaml["yfinance"]["Equity"]["Indivisual"] =\
+                list(set(main_stock_ids + config_yaml["yfinance"]["Equity"]["Indivisual"]))
 
             # 書込
             with open(dirname(__file__) + "/config.yaml", "w") as file:
@@ -53,7 +58,7 @@ class NumeraiStockUpdater:
 
 
     def _get_main_stock_id(self):
-        """ numerai signal 予測対象銘柄からメイン地域の銘柄idを抽出し、Yahoo!Financeで使用されている銘柄コードに変換して返す
+        """ numerai signals予測対象銘柄からメイン地域の銘柄idを抽出し、Yahoo!Financeで使用されている銘柄コードに変換して返す
         Returns:
             list(str): 対象銘柄の配列
         """
@@ -72,7 +77,7 @@ class NumeraiStockUpdater:
                     columns=["stock_id", "region"]
                 ).fillna("blank")
 
-            # extract & replace
+            # extract & replace region symbol
             main_universe_regions =\
                 ["JT", "KS", "LN", "AU", "GY", "FP", "blank"]
 
