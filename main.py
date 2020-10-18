@@ -8,6 +8,7 @@ from stockstocker import NumeraiStockUpdater, InvestingSaver, YFinanceSaver
 
 
 def setLogger(obj, logname):
+    """ objにloggerを持たせる """
     if not os.path.exists('logs'):
         os.mkdir("logs")
     
@@ -47,7 +48,7 @@ if __name__ == "__main__":
     investing.update_bonds()
 
     # @Yahoo finance
-    yfinance.update_equity_indices()
-    yfinance.update_equites()
     yfinance.update_commodities()
     yfinance.update_forex()
+    yfinance.update_equity_indices()
+    yfinance.update_equites()

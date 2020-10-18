@@ -40,7 +40,8 @@ class YFinanceSaver(SaverBase):
         """ config.yaml内のEquity.Indivisualの一括download
         """
         equity_list = self.config_dict["Equity"]["Indivisual"]
-        for symbol in equity_list:
+        n_equity = len(equity_list)
+        for i,symbol in enumerate(equity_list):
             # folder_path作成: home/Equity/Indivisual/JP/TM.T/
             folder_path = "{}/{}/{}/{}/{}/".format(
                 self.homedir, "Equity", "Indivisual",
@@ -58,6 +59,8 @@ class YFinanceSaver(SaverBase):
             self.mkdir(folder_path + "Info")
             self._get_symbol_info(symbol, folder_path + "Info")
             time.sleep(1)
+            self.logger.info(f"{symbol} : {i} / {n_equity}")
+        self.logger.info("===== EQUITY UPDATION COMPLETED =====")
 
 
     def update_equity_indices(self):
@@ -83,6 +86,7 @@ class YFinanceSaver(SaverBase):
                 self.mkdir(folder_path + "Info")
                 self._get_symbol_info(symbol, folder_path + "Info")
                 time.sleep(1)
+        self.logger.info("===== EQUITY-INDEX UPDATION COMPLETED ======")
 
 
     def update_commodities(self):
@@ -107,6 +111,7 @@ class YFinanceSaver(SaverBase):
                 self.mkdir(folder_path + "Info")
                 self._get_symbol_info(symbol, folder_path + "Info")
                 time.sleep(1)
+        self.logger.info("===== COMMODITY UPDATION COMPLETED =====")
 
 
     def update_forex(self):
@@ -129,6 +134,7 @@ class YFinanceSaver(SaverBase):
                     self.mkdir(folder_path + "Intraday")
                     self._get_1min_ohlcv(symbol, folder_path + "Intraday")
                     time.sleep(1)
+        self.logger.info("====== FOREX UPDATION COMPLETED =====")
 
 
     def _get_daily_ohlcv(self, symbol, folder_path):
@@ -181,10 +187,9 @@ class YFinanceSaver(SaverBase):
         try:
             yfTicker = yf.Ticker(symbol)
             latest_date = self._get_latest_date(folder_path)
-            if latest_date is None:
+            if latest_date is None or datetime.datetime.now().date() - latest_date > datetime.timedelta(6):
                 # 新規作成する
-                df = yfTicker\
-                    .history(period="7d", interval="1m")
+                df = yfTicker.history(period="7d", interval="1m")
                 if df.shape[0] > 0:
                     timezone = df.index.tz  # timezone一時保存
                     df.index = df.index.tz_localize(None)
@@ -193,6 +198,7 @@ class YFinanceSaver(SaverBase):
                             .tz_localize(timezone)\
                             .to_hdf(folder_path + date.strftime("/%Y-%m-%d.hdf"), key="pandasdf")
                     self.logger.info("'{}' Intraday OHLCV was newly saved.".format(symbol))
+            
             else:
                 # updateする
                 diff = yfTicker\
