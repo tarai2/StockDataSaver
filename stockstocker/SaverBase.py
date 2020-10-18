@@ -5,6 +5,7 @@ import logging
 import logging.handlers
 import numpy as np
 import pandas as pd
+import tables
 import yfinance as yf
 import time
 import datetime
@@ -24,15 +25,21 @@ class SaverBase:
         """ ディレクトリ内のhdfファイルから, 最も新しいエントリの日時を取得
         Args:
             folder_dir (str): e.g. home/Product/Country/Symbol/Daily
+            extention (str): file formatの指定
         Returns:
             None or datetime:
         """
         files = sorted(glob(folder_dir + "/*.{}".format(extention)))
-        # ファイルがそもそも存在しない場合, None
+        # ファイルがそもそも存在しない場合はNoneを返す
         if len(files) == 0:
             return None
+        
         if extention == "hdf":
-            date = pd.read_hdf(files[-1], start=-1).index[-1].date()
+            try:
+                date = pd.read_hdf(files[-1], start=-1).index[-1].date()
+            except tables.exceptions.HDF5ExtError:
+                # 読み込み不能だった場合にはNoneを返す
+                return None
         elif extention == "csv":
             date = pd.read_csv(files[-1], parse_dates=[0], index_col=[0]).index[-1].date()
 

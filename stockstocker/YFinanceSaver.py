@@ -6,6 +6,7 @@ import logging
 import logging.handlers
 import numpy as np
 import pandas as pd
+import tables
 import yfinance as yf
 import time
 import datetime
@@ -146,7 +147,7 @@ class YFinanceSaver(SaverBase):
                     df.to_hdf(folder_path + "/" + symbol + ".hdf", key="pandasdf")
                 self.logger.info("'{}' Daily OHLCV was newly saved.".format(symbol))
             else:
-                # append
+                # appendする
                 diff = yfTicker\
                     .history(start=(latest_date+Day1).strftime("%Y-%m-%d"),
                              end=datetime.datetime.now().strftime("%Y-%m-%d"))
@@ -181,7 +182,7 @@ class YFinanceSaver(SaverBase):
             yfTicker = yf.Ticker(symbol)
             latest_date = self._get_latest_date(folder_path)
             if latest_date is None:
-                # 新規作成
+                # 新規作成する
                 df = yfTicker\
                     .history(period="7d", interval="1m")
                 if df.shape[0] > 0:
@@ -193,7 +194,7 @@ class YFinanceSaver(SaverBase):
                             .to_hdf(folder_path + date.strftime("/%Y-%m-%d.hdf"), key="pandasdf")
                     self.logger.info("'{}' Intraday OHLCV was newly saved.".format(symbol))
             else:
-                # update
+                # updateする
                 diff = yfTicker\
                     .history(interval="1m",
                              start=(latest_date).strftime("%Y-%m-%d"),
