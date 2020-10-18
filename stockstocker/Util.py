@@ -15,7 +15,7 @@ class Util:
 
     @staticmethod
     def get_files(filename, daily=False, format="hdf"):
-        """ filenameと一致するpath名を持つfileのlistを返す
+        """ 引数filenameと 部分一致するフォルダ名 を持つfileのlistを返す
         Args:
             filename (str): 検索文字列 e.g. US_Dollar_Index 
             daily (bool, optional): Defaults to False.
@@ -26,7 +26,7 @@ class Util:
         homedir = Util.get_homedir()
         timehorizon = "Daily" if daily else "Intraday"
         files = sorted(
-            glob("{}**/*{}*/**/{}/*.{}".format(homedir, filename, timehorizon, format), recursive=True)
+            glob(f"{homedir}/**/*{filename}*/**/{timehorizon}/*.{format}", recursive=True)
         )
         return files
 

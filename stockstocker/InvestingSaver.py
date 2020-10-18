@@ -96,19 +96,19 @@ class InvestingSaver(SaverBase):
                 # 新規作成
                 df = search_res.retrieve_historical_data(
                     from_date='01/01/1950',
-                    to_date=datetime.date.today().strftime("%m/%d/%Y")
+                    to_date=datetime.date.today().strftime("%d/%m/%Y")
                 )
                 df.to_hdf(folder_path + "/" + symbol.replace("/","_") + ".hdf", key="pandasdf")
                 self.logger.info("'{}' Daily OHLCV was newly saved.".format(symbol))
             else:
                 # append
                 diff = search_res.retrieve_historical_data(
-                    from_date=latest_date.strftime("%m/%d/%Y"),
-                    to_date=datetime.date.today().strftime("%m/%d/%Y")
+                    from_date=latest_date.strftime("%d/%m/%Y"),
+                    to_date=datetime.date.today().strftime("%d/%m/%Y")
                 )
                 df = pd.read_hdf(folder_path + "/" + symbol.replace("/","_") + ".hdf")
-                df.append(diff)\
-                  .to_hdf(folder_path + "/" + symbol.replace("/","_") + ".hdf", key="pandasdf")
+                df = df.append(diff)
+                df.to_hdf(folder_path + "/" + symbol.replace("/","_") + ".hdf", key="pandasdf")
                 self.logger.info("'{}' Daily OHLCV was updated.".format(symbol))
         except KeyboardInterrupt:
             sys.exit()
