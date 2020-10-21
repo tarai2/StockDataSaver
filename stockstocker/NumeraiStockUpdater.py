@@ -91,7 +91,8 @@ class NumeraiStockUpdater:
                     "LN": ".L",
                     "AU": ".AX",
                     "GY": ".DE",
-                    "FP": ".PA"
+                    "FP": ".PA",
+                    "/": ""
                 })
             # USのidの末尾の.を消しておく
             main_universe.stock_id = main_universe.stock_id.apply(lambda x: x.replace(".", ""))

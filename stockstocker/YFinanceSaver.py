@@ -36,6 +36,7 @@ class YFinanceSaver(SaverBase):
 
         self.permitRetry = True
 
+
     def update_equites(self):
         """ config.yaml内のEquity.Indivisualの一括download
         """
@@ -47,6 +48,7 @@ class YFinanceSaver(SaverBase):
                 self.homedir, "Equity", "Indivisual",
                 self._get_equity_country_code(symbol).name, symbol
             )
+            self.logger.info(f"try {symbol}")
             # Daily
             self.mkdir(folder_path + "Daily")
             self._get_daily_ohlcv(symbol, folder_path + "Daily")
@@ -59,7 +61,7 @@ class YFinanceSaver(SaverBase):
             self.mkdir(folder_path + "Info")
             self._get_symbol_info(symbol, folder_path + "Info")
             time.sleep(1)
-            self.logger.info(f"{symbol} : {i} / {n_equity}")
+            self.logger.info(f"{symbol} = {i} / {n_equity}")
         self.logger.info("===== EQUITY UPDATION COMPLETED =====")
 
 
@@ -165,6 +167,10 @@ class YFinanceSaver(SaverBase):
             sys.exit()
         except json.JSONDecodeError as e:
             self.logger.info("Sorry, '{}' seems to have no Daily OHLCV".format(symbol))
+        except tables.HDF5ExtError as e:
+            self.logger.info(f"HDF5ExtError, remove Daily OHLCV hdf file for {symbol}")
+
+            
         except urllib.error.HTTPError as e:
             if self.permitRetry:
                 self.logger.info("HTTPError ... Retry")

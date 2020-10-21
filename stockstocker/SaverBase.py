@@ -37,7 +37,7 @@ class SaverBase:
         if extention == "hdf":
             try:
                 date = pd.read_hdf(files[-1], start=-1).index[-1].date()
-            except tables.exceptions.HDF5ExtError:
+            except OSError:
                 # 読み込み不能だった場合にはNoneを返す
                 return None
         elif extention == "csv":
