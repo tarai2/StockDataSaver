@@ -92,13 +92,14 @@ class NumeraiStockUpdater:
                     "AU": ".AX",
                     "GY": ".DE",
                     "FP": ".PA",
-                    "/": ""
                 })
             # USのidの末尾の.を消しておく
             main_universe.stock_id = main_universe.stock_id.apply(lambda x: x.replace(".", ""))
 
             # 結合することでYahooFinanceIDに直す
             main_stock_ids = main_universe.sum(axis=1).reset_index(drop=True).values.tolist()
+            # / をdrop
+            main_stock_ids = [_id.replace("/","") for _id in main_stock_ids] 
             return main_stock_ids
 
         except Exception as e:
