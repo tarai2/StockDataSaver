@@ -259,9 +259,8 @@ class YFinanceSaver(SaverBase):
                     self.logger.info("'{}' Daily INFO was newly saved.".format(symbol))
             else:
                 # append
-                df = pd.read_csv(folder_path + "/" + symbol + ".csv")
+                df = pd.read_csv(folder_path + "/" + symbol + ".csv", index_col=[0], parse_dates=[0])
                 df.append(diff).to_csv(folder_path + "/" + symbol + ".csv")
-                diff.to_csv(folder_path + "/" + symbol + ".csv")
                 self.logger.info("'{}' Daily INFO was updated.".format(symbol))
             self.permitRetry = True
         except KeyboardInterrupt:
