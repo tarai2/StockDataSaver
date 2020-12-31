@@ -1,93 +1,101 @@
 default_config = {
     "homedir": "./",
-    "investing.com": {
-        "Bond": {
-            "AU": [],
-            "DE": [
-                'Germany 10-Year',
-                'Germany 9-Year',
-                'Germany 15-Year',
-                'Germany 8-Year',
-                'Germany 25-Year',
-                'Germany 30-Year',
-                'Germany 20-Year',
-                'Germany 7-Year',
-                'Germany 1-Year',
-                'Germany 5-Year',
-                'Germany 4-Year',
-                'Germany 3-Year',
-                'Germany 2-Year',
-                'Germany 6-Year',
-                'Germany 9-Month',
-                'Germany 6-Month',
-                'Germany 3 Month'
-            ],
-            "FR": [],
-            "JP": [
-                'Japan 7-Year',
-                'Japan 30-Year',
-                'Japan 20-Year',
-                'Japan 15-Year',
-                'Japan 10-Year',
-                'Japan 9-Year',
-                'Japan 8-Year',
-                'Japan 6-Year',
-                'Japan 40-Year',
-                'Japan 4-Year',
-                'Japan 3-Year',
-                'Japan 2-Year',
-                'Japan 1-Year',
-                'Japan 9-Month',
-                'Japan 6-Month',
-                'Japan 3-Month',
-                'Japan 1-Month',
-                'Japan 5-Year'
-            ],
-            "KS": [],
-            "UK": [
-                'United Kingdom 40-Year',
-                'United Kingdom 50-Year',
-                'United Kingdom 30-Year',
-                'United Kingdom 25-Year',
-                'United Kingdom 15-Year',
-                'United Kingdom 12-Year',
-                'United Kingdom 10-Year',
-                'United Kingdom 9-Year',
-                'United Kingdom 8-Year',
-                'United Kingdom 20-Year',
-                'United Kingdom 6-Year',
-                'United Kingdom 5-Year',
-                'United Kingdom 4-Year',
-                'United Kingdom 3-Year',
-                'United Kingdom 2-Year',
-                'United Kingdom 1-Year',
-                'United Kingdom 6-Month',
-                'United Kingdom 3-Month',
-                'United Kingdom 1-Month',
-                'United Kingdom 7-Year'
-            ],
-            "US": [
-                'United States 30-Year',
-                'United States 10-Year',
-                'United States 7-Year',
-                'United States 5-Year',
-                'United States 3-Year',
-                'United States 3-Month',
-                'United States 1-Year',
-                'United States 6-Month',
-                'United States 1-Month',
-                'United States 2-Year']
+    "investing.com": 
+    {
+        "Bond": 
+        {
+            "": 
+            {
+                "AU": [],
+                "DE": [
+                    'Germany 10-Year',
+                    'Germany 9-Year',
+                    'Germany 15-Year',
+                    'Germany 8-Year',
+                    'Germany 25-Year',
+                    'Germany 30-Year',
+                    'Germany 20-Year',
+                    'Germany 7-Year',
+                    'Germany 1-Year',
+                    'Germany 5-Year',
+                    'Germany 4-Year',
+                    'Germany 3-Year',
+                    'Germany 2-Year',
+                    'Germany 6-Year',
+                    'Germany 9-Month',
+                    'Germany 6-Month',
+                    'Germany 3 Month'
+                ],
+                "FR": [],
+                "JP": [
+                    'Japan 7-Year',
+                    'Japan 30-Year',
+                    'Japan 20-Year',
+                    'Japan 15-Year',
+                    'Japan 10-Year',
+                    'Japan 9-Year',
+                    'Japan 8-Year',
+                    'Japan 6-Year',
+                    'Japan 40-Year',
+                    'Japan 4-Year',
+                    'Japan 3-Year',
+                    'Japan 2-Year',
+                    'Japan 1-Year',
+                    'Japan 9-Month',
+                    'Japan 6-Month',
+                    'Japan 3-Month',
+                    'Japan 1-Month',
+                    'Japan 5-Year'
+                ],
+                "KS": [],
+                "UK": [
+                    'United Kingdom 40-Year',
+                    'United Kingdom 50-Year',
+                    'United Kingdom 30-Year',
+                    'United Kingdom 25-Year',
+                    'United Kingdom 15-Year',
+                    'United Kingdom 12-Year',
+                    'United Kingdom 10-Year',
+                    'United Kingdom 9-Year',
+                    'United Kingdom 8-Year',
+                    'United Kingdom 20-Year',
+                    'United Kingdom 6-Year',
+                    'United Kingdom 5-Year',
+                    'United Kingdom 4-Year',
+                    'United Kingdom 3-Year',
+                    'United Kingdom 2-Year',
+                    'United Kingdom 1-Year',
+                    'United Kingdom 6-Month',
+                    'United Kingdom 3-Month',
+                    'United Kingdom 1-Month',
+                    'United Kingdom 7-Year'
+                ],
+                "US": [
+                    'United States 30-Year',
+                    'United States 10-Year',
+                    'United States 7-Year',
+                    'United States 5-Year',
+                    'United States 3-Year',
+                    'United States 3-Month',
+                    'United States 1-Year',
+                    'United States 6-Month',
+                    'United States 1-Month',
+                    'United States 2-Year']
+            }
         },
-        "Currency": {
-            "AUD": [],
-            "EUR": [],
-            "JPY": [],
-            "USD": [
-                "US Dollar Index"
-            ]
+        "Currency": 
+        {
+            "": 
+            {
+                "AU": [],
+                "JP": [],
+                "US": ["US Dollar Index"]
+            }
         },
-        "Equity": {
-            "Index": {
+        "Equity": 
+        {
+            "Index":
+            {
                 "AU": [
                     "S&P/ASX 200 Consumer Discretionary",
                     "S&P/ASX 200 Consumer Staples",
@@ -142,7 +150,7 @@ default_config = {
                     "Tokyo SE TOPIX17 Automobile Stock Price"
                 ],
                 "KS": [
-                    "KOSPI 200"
+                    "KOSPI 200",
                     "KOSPI 200 IT",
                     "KOSPI 200 Heavy Industries",
                     "KOSPI 200 Financials",
@@ -206,32 +214,43 @@ default_config = {
             }
         }
     },
-    "yfinance": {
-        "Commodity": {
-            "Gold": [
-                "GC=F"
-            ],
-            "Silver": [
-                "SI=F"
-            ],
-            "Oil": [
-                "CL=F"
-            ],
-            "Gas": [
-                "NG=F"
-            ],
-            "Corn": [
-                "C=F"
-            ],
-            "Soybeans": [
-                "S=F"
-            ],
-            "Wheat": [
-                "W=F"
-            ]
+    "yfinance": 
+    {
+        "Commodity": 
+        {
+            "Gold": 
+            {
+                "": ["GC=F"]
+            },
+            "Silver": 
+            {
+                "": ["SI=F"]
+            },
+            "Oil": 
+            {
+                "": ["CL=F"]
+            },
+            "Gas":
+            {
+                "": ["NG=F"]
+            },
+            "Corn": 
+            {
+                "": ["C=F"]
+            },
+            "Soybeans":
+            {
+                "": ["S=F"]
+            },
+            "Wheat": 
+            {
+                "": ["W=F"]
+            }
         },
-        "Equity": {
-            "Index": {
+        "Equity": 
+        {
+            "Index": 
+            {
                 "AU": [],
                 "DE": [
                     "^GDAXI"
@@ -249,28 +268,26 @@ default_config = {
                     "^VIX"
                 ]
             },
-            "Indivisual": []
+            "Indivisual": 
+            {
+                
+            }
         },
-        "Forex": {
-            "Forward": {
+        "Forex": 
+        {
+            "Forward": 
+            {
                 "AUDUSD": [],
                 "EURUSD": [],
                 "GBPUSD": [],
                 "USDJPY": []
             },
-            "Spot": {
-                "AUDUSD": [
-                    "AUDUSD=X"
-                ],
-                "EURUSD": [
-                    "EURUSD=X"
-                ],
-                "GBPUSD": [
-                    "GBPUSD=X"
-                ],
-                "USDJPY": [
-                    "USDJPY=X"
-                ]
+            "Spot": 
+            {
+                "AU": ["AUDUSD=X"],
+                "": ["EURUSD=X"],
+                "UK": ["GBPUSD=X"],
+                "JP": ["USDJPY=X"]
             }
         }
     }

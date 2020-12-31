@@ -3,12 +3,14 @@ import datetime
 import os
 import logging
 import logging.handlers
+import pandas as pd
+from concurrent import futures
 from os.path import dirname
-from stockstocker import NumeraiStockUpdater, InvestingSaver, YFinanceSaver
+from lib.stockstocker import NumeraiStockUpdater, InvestingSaver, YFinanceSaver
 
 
 def setLogger(obj, logname):
-    """ objにloggerを持たせる """
+    """ objのloggerにhandlerを持たせる """
     if not os.path.exists('logs'):
         os.mkdir("logs")
     
@@ -17,7 +19,7 @@ def setLogger(obj, logname):
         filename=f'logs/{logname}.log',
         atTime=datetime.time(0),
         when="MIDNIGHT",
-        backupCount=7,
+        backupCount=30,
         encoding='utf-8'
     )
     timeHandler.setFormatter(
@@ -40,15 +42,22 @@ if __name__ == "__main__":
     setLogger(investing, "investing")
 
     # 銘柄コードupdate
-    numerai.refresh()
+    # numerai.refresh()
 
     # @investing.com
-    investing.update_equity_indices()
-    investing.update_currencies()
-    investing.update_bonds()
+    task = []
+    sym_inv = pd.json_normalize(investing.config_dict).iloc[0].values.sum()    
+    with futures.ThreadPoolExecutor(max_workers=3) as executor1:
+        for sym in sym_inv:
+            task.append( executor1.submit(investing.push_ohlcv, sym) )
+    investing.logger.info("END")
 
-    # @Yahoo finance
-    yfinance.update_commodities()
-    yfinance.update_forex()
-    yfinance.update_equity_indices()
-    yfinance.update_equites()
+
+    # @yahoo
+    # sym_yf = pd.json_normalize(yfinance.config_dict).iloc[0].values.sum()
+    # with futures.ThreadPoolExecutor(max_workers=2) as executor2:
+    #     for sym in sym_yf:
+    #         task.append( executor2.submit(yfinance.push_ohlcv, "Daily", sym) )
+    #         task.append( executor2.submit(yfinance.push_ohlcv, "Intraday", sym) )
+    # yfinance.logger.info("END")
+    futures.as_completed(fs=task)

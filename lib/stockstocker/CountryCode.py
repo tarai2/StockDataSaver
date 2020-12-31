@@ -1,6 +1,7 @@
 from enum import Enum
 
 
+from enum import Enum
 class Country(Enum):
     US = "US"
     JP = "JP"
@@ -9,15 +10,7 @@ class Country(Enum):
     DE = "DE"
     FR = "FR"
     AU = "AU"
-
-    def toNumerai(self):
-        if self == Country.US: return ""
-        if self == Country.JP: return "JT"
-        if self == Country.UK: return "LN"
-        if self == Country.KS: return "KS"
-        if self == Country.FR: return "FP"
-        if self == Country.AU: return "AS"
-        if self == Country.DE: return "GY"
+    HK = "HK"
 
     def toYahoo(self):
         if self == Country.US: return ""
@@ -27,7 +20,6 @@ class Country(Enum):
         if self == Country.FR: return ".PA"
         if self == Country.AU: return ".AX"
         if self == Country.DE: return ".DE"
-
 
 def getCountryCode(country_code):
     """ その他のカントリーコードをMyContryCodeに変換
@@ -46,9 +38,9 @@ def getCountryCode(country_code):
         return Country.KS
     elif country_code in ["FP", ".PA", "PA", "FR", "france"]:
         return Country.FR
-    elif country_code in ["AS", ".AX", "AX", "AUD"]:
+    elif country_code in ["AS", "AU", ".AX", "AX", "AUD"]:
         return Country.AU
-    elif country_code in ["GY", ".DE", "DE", "GER", "germany"]:
+    elif country_code in ["GY", "GR", ".DE", "DE", "GER", "germany"]:
         return Country.DE
 
 

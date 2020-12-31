@@ -1,0 +1,438 @@
+homedir: ./
+investing.com:
+    Bond:
+        ? ''
+        :   AU: []
+            DE: [Germany 10-Year, Germany 9-Year, Germany 15-Year, Germany 8-Year,
+                Germany 25-Year, Germany 30-Year, Germany 20-Year, Germany 7-Year,
+                Germany 1-Year, Germany 5-Year, Germany 4-Year, Germany 3-Year, Germany
+                    2-Year, Germany 6-Year, Germany 9-Month, Germany 6-Month, Germany
+                    3 Month]
+            FR: []
+            JP: [Japan 7-Year, Japan 30-Year, Japan 20-Year, Japan 15-Year, Japan
+                    10-Year, Japan 9-Year, Japan 8-Year, Japan 6-Year, Japan 40-Year,
+                Japan 4-Year, Japan 3-Year, Japan 2-Year, Japan 1-Year, Japan 9-Month,
+                Japan 6-Month, Japan 3-Month, Japan 1-Month, Japan 5-Year]
+            KS: []
+            UK: [United Kingdom 40-Year, United Kingdom 50-Year, United Kingdom 30-Year,
+                United Kingdom 25-Year, United Kingdom 15-Year, United Kingdom 12-Year,
+                United Kingdom 10-Year, United Kingdom 9-Year, United Kingdom 8-Year,
+                United Kingdom 20-Year, United Kingdom 6-Year, United Kingdom 5-Year,
+                United Kingdom 4-Year, United Kingdom 3-Year, United Kingdom 2-Year,
+                United Kingdom 1-Year, United Kingdom 6-Month, United Kingdom 3-Month,
+                United Kingdom 1-Month, United Kingdom 7-Year]
+            US: [United States 30-Year, United States 10-Year, United States 7-Year,
+                United States 5-Year, United States 3-Year, United States 3-Month,
+                United States 1-Year, United States 6-Month, United States 1-Month,
+                United States 2-Year]
+    Currency:
+        ? ''
+        :   AU: []
+            JP: []
+            US: [US Dollar Index]
+    Equity:
+        Index:
+            AU: [S&P/ASX 200 Consumer Discretionary, S&P/ASX 200 Consumer Staples,
+                S&P/ASX 200 Energy, S&P/ASX 200 Financials, S&P/ASX 200 Health Care,
+                S&P/ASX 200 Industrials, S&P/ASX 200 Information Technology, S&P/ASX
+                    200 Materials, S&P/ASX 200 REIT, S&P/ASX 200 Resources, S&P/ASX
+                    200 Telecommunication Services, S&P/ASX 200 Utilities]
+            DE: [DAX Pharmaceuticals & Healthcare, DAX Software, DAX Technology, DAX
+                    Telecom, DAX Transportation & Logistics, DAX Retail, DAX Media,
+                DAX Insurance, DAX Food & Beverage, DAX Industrial, DAX Utilities,
+                DAX Banks, DAX Basic Resources, DAX Consumer & Cyclical, DAX Construction,
+                DAX Chemicals, DAX Financial Services, DAX Automobile]
+            JP: [Tokyo SE TOPIX17 Wholesale Stock Price, Tokyo SE TOPIX17 Transportation
+                    Stock Price, Tokyo SE TOPIX17 Steel Stock Price, Tokyo SE TOPIX17
+                    IT & Services Stock Price, Tokyo SE TOPIX17 Real Estate Stock
+                    Price, Tokyo SE TOPIX17 Power & Gas Stock Price, Tokyo SE TOPIX17
+                    Pharmacetical Stock Price, Tokyo SE TOPIX17 Machinery Stock Price,
+                Tokyo SE TOPIX17 Food Stock Price, Tokyo SE TOPIX17 Retail Stock Price,
+                Tokyo SE TOPIX17 Financials Stock Price, Tokyo SE TOPIX17 Energy Resources
+                    Stock Price, Tokyo SE TOPIX17 Construction Stock Price, Tokyo
+                    SE TOPIX17 Electric Stock Price, Tokyo SE TOPIX17 Banks Stock
+                    Price, Tokyo SE TOPIX17 Chemicals Stock Price, Tokyo SE TOPIX17
+                    Automobile Stock Price]
+            KS: [KOSPI 200, KOSPI 200 IT, KOSPI 200 Heavy Industries, KOSPI 200 Financials,
+                KOSPI 200 Energy & Chemicals, KOSPI 200 Consumer Staples, KOSPI 200
+                    Consumer Discretionary, KOSPI 200 Constructions & Machinery, KOSPI
+                    200 Steels & Materials]
+            UK: [FTSE 350 - Real Estate Investment Trusts REITs, FTSE 350 - Real Estate,
+                FTSE 350 - Mobile Telecommunications, FTSE 350 Equity Investment Instruments,
+                FTSE 350 Electronic & Electrical Equipment, FTSE 350 Electricity,
+                FTSE 350 Construction & Building Materials, FTSE 350 Chemicals, FTSE
+                    350 Beverages, FTSE 350 Banks, FTSE 350 Aerospace & Defense, FTSE
+                    350 - Industrial Metals & Mining, FTSE 350 - Forestry & Paper,
+                FTSE 350 - Automobiles & Parts, FTSE 350 Pharmaceuticals & Biotechnology,
+                FTSE 350 Oil Equipment & Services, FTSE 350 Oil & Gas, FTSE 350 Nonlife
+                    Insurance, FTSE 350 Mining, FTSE 350 Tobacco, FTSE 350 Travel
+                    & Leisure, FTSE 350 Support Services, FTSE 350 Software & Computer
+                    Services, FTSE 350 Gas Water & Multiutilities, FTSE 350 Food &
+                    Drug Retailers, FTSE 350 Fixed Line Telecommuniations, FTSE 350
+                    Financial Services, FTSE 350 General Industrials, FTSE 350 Food
+                    Producers, FTSE 350 Health Care Equipment & Services, FTSE 350
+                    General Retailers, FTSE 350 Media, FTSE 350 Household Goods, FTSE
+                    350 Life Insurance, FTSE 350 Industrial Transportation, FTSE 350
+                    Industrial Engineering]
+            US: [S&P 500 Consumer Discretionary, S&P 500 Consumer Staples, S&P 500
+                    Energy, S&P 500 Financials, S&P 500 Health Care, S&P 500 Industrials,
+                S&P 500 Information Technology, S&P 500 Materials, S&P 500 Real Estate,
+                S&P 500 Telecom Services, S&P 500 Utilities]
+yfinance:
+    Commodity:
+        Corn:
+            ? ''
+            : [C=F]
+        Gas:
+            ? ''
+            : [NG=F]
+        Gold:
+            ? ''
+            : [GC=F]
+        Oil:
+            ? ''
+            : [CL=F]
+        Silver:
+            ? ''
+            : [SI=F]
+        Soybeans:
+            ? ''
+            : [S=F]
+        Wheat:
+            ? ''
+            : [W=F]
+    Equity:
+        Index:
+            AU: []
+            DE: [^GDAXI]
+            FR: []
+            JP: [^N225]
+            KS: []
+            UK: [^FTSE]
+            US: [^GSPC, ^VIX]
+        Indivisual:
+            AU: [ABC.AX, AD8.AX, ADH.AX, AGL.AX, ALD.AX, ALL.AX, ALQ.AX, ALU.AX, ALX.AX,
+                AMA.AX, AMI.AX, AMP.AX, ANN.AX, ANZ.AX, APA.AX, APE.AX, APT.AX, APX.AX,
+                ARB.AX, AST.AX, ASX.AX, AWC.AX, AX1.AX, AZJ.AX, BAP.AX, BEN.AX, BGA.AX,
+                BGL.AX, BHP.AX, BIN.AX, BKL.AX, BKW.AX, BLD.AX, BPT.AX, BRG.AX, BSL.AX,
+                BVS.AX, BXB.AX, CAR.AX, CBA.AX, CCL.AX, CCP.AX, CGC.AX, CGF.AX, CGL.AX,
+                CIM.AX, CKF.AX, COE.AX, COL.AX, CPU.AX, CSL.AX, CSR.AX, CTD.AX, CWN.AX,
+                CWY.AX, DCN.AX, DHG.AX, DMP.AX, DOW.AX, ECX.AX, EHL.AX, ELD.AX, EML.AX,
+                EVN.AX, FCL.AX, FLT.AX, FMG.AX, FNP.AX, FXL.AX, GEM.AX, GNC.AX, GOR.AX,
+                GUD.AX, GWA.AX, GXY.AX, HLS.AX, HSN.AX, HUB.AX, IAG.AX, IEL.AX, IFL.AX,
+                IGO.AX, ILU.AX, ING.AX, IPH.AX, IPL.AX, IRE.AX, IVC.AX, JBH.AX, JHX.AX,
+                JIN.AX, KAR.AX, KGN.AX, LLC.AX, LNK.AX, LOV.AX, LYC.AX, MFG.AX, MIN.AX,
+                MMS.AX, MND.AX, MP1.AX, MPL.AX, MQG.AX, MSB.AX, MTS.AX, NAB.AX, NAN.AX,
+                NCK.AX, NCM.AX, NEA.AX, NEC.AX, NHF.AX, NST.AX, NUF.AX, NWH.AX, NWL.AX,
+                NXT.AX, OML.AX, ORA.AX, ORE.AX, ORG.AX, ORI.AX, OSH.AX, OZL.AX, PDL.AX,
+                PLS.AX, PME.AX, PMV.AX, PNI.AX, PNV.AX, PPT.AX, PRN.AX, PRU.AX, PTM.AX,
+                QAN.AX, QBE.AX, QUB.AX, REA.AX, RHC.AX, RIO.AX, RMS.AX, RRL.AX, RSG.AX,
+                RWC.AX, S32.AX, SAR.AX, SBM.AX, SDF.AX, SEK.AX, SFR.AX, SGM.AX, SGR.AX,
+                SHL.AX, SHV.AX, SIQ.AX, SKI.AX, SLR.AX, SPL.AX, SSM.AX, STO.AX, SUL.AX,
+                SUN.AX, SVW.AX, SXL.AX, SYD.AX, TAH.AX, TCL.AX, TGR.AX, TLS.AX, TNE.AX,
+                TWE.AX, VEA.AX, VOC.AX, VRT.AX, WBC.AX, WEB.AX, WES.AX, WGX.AX, WHC.AX,
+                WOR.AX, WOW.AX, WPL.AX, WSA.AX, WTC.AX]
+            DE: [1COV.DE, 8TRA.DE, ADJ.DE, ADS.DE, AFX.DE, AIXA.DE, ALV.DE, AR4.DE,
+                ARL.DE, AT1.DE, B4B.DE, BAS.DE, BAYN.DE, BC8.DE, BEI.DE, BMW.DE, BOSS.DE,
+                BVB.DE, CAP.DE, CBK.DE, CCAP.DE, CE2.DE, CEC.DE, COK.DE, CON.DE, DAI.DE,
+                DB1.DE, DBK.DE, DEZ.DE, DHER.DE, DIC.DE, DLG.DE, DMP.DE, DPW.DE, DRI.DE,
+                DTE.DE, DUE.DE, DWNI.DE, DWS.DE, EOAN.DE, EVD.DE, EVK.DE, EVT.DE,
+                FIE.DE, FME.DE, FNTN.DE, FRA.DE, FRE.DE, FTK.DE, G1A.DE, GBF.DE, GYC.DE,
+                HBH.DE, HEI.DE, HEN.DE, HFG.DE, HHFA.DE, HLAG.DE, HLE.DE, HNR1.DE,
+                HOT.DE, HYQ.DE, IFX.DE, JEN.DE, JST.DE, JUN3.DE, KBX.DE, KCO.DE, KGX.DE,
+                KRN.DE, LEG.DE, LXS.DE, MOR.DE, MRK.DE, MTX.DE, MUV2.DE, NDX1.DE,
+                NEM.DE, O2D.DE, OSR.DE, PBB.DE, PSM.DE, PUM.DE, RAA.DE, RHM.DE, RKET.DE,
+                RWE.DE, S92.DE, SAE.DE, SAP.DE, SAX.DE, SDF.DE, SHL.DE, SIE.DE, SIX2.DE,
+                SMHN.DE, SOW.DE, SRT3.DE, STM.DE, SY1.DE, SZG.DE, SZU.DE, TLX.DE,
+                UN01.DE, UTDI.DE, VNA.DE, VOW.DE, WAC.DE, WAF.DE, WCH.DE, ZAL.DE,
+                ZO1.DE]
+            FR: [ABIO.PA, AC.PA, ACA.PA, ADP.PA, AI.PA, AIR.PA, AKA.PA, AKE.PA, ALO.PA,
+                ALS30.PA, AM.PA, AMUN.PA, ATE.PA, ATO.PA, BB.PA, BIM.PA, BN.PA, BNP.PA,
+                BOL.PA, BVI.PA, CA.PA, CAP.PA, CGG.PA, CNP.PA, COFA.PA, CRI.PA, CS.PA,
+                DBV.PA, DEC.PA, DG.PA, DIM.PA, DSY.PA, EDEN.PA, EDF.PA, EL.PA, ELIOR.PA,
+                ELIS.PA, EN.PA, ENGI.PA, EO.PA, ERA.PA, ERF.PA, ETL.PA, FDJ.PA, FGR.PA,
+                FNAC.PA, FP.PA, FR.PA, GET.PA, GLE.PA, GTT.PA, HO.PA, ILD.PA, ING.PA,
+                IPN.PA, IPS.PA, KER.PA, KN.PA, KOF.PA, KORI.PA, LR.PA, MC.PA, MDM.PA,
+                MF.PA, NEOEN.PA, NEX.PA, NK.PA, NXI.PA, OR.PA, ORA.PA, ORP.PA, POM.PA,
+                PUB.PA, RCO.PA, RF.PA, RI.PA, RMS.PA, RNO.PA, RUI.PA, RXL.PA, SAF.PA,
+                SAN.PA, SCR.PA, SEV.PA, SGO.PA, SK.PA, SOI.PA, SOP.PA, SPIE.PA, SU.PA,
+                SW.PA, TEP.PA, TFI.PA, TRI.PA, UBI.PA, UG.PA, VIE.PA, VIV.PA, VRLA.PA,
+                WLN.PA]
+            JP: [1332.T, 1407.T, 1414.T, 1605.T, 1662.T, 1719.T, 1721.T, 1801.T, 1802.T,
+                1803.T, 1808.T, 1812.T, 1820.T, 1824.T, 1835.T, 1860.T, 1878.T, 1893.T,
+                1911.T, 1925.T, 1926.T, 1928.T, 1942.T, 1944.T, 1951.T, 1959.T, 1963.T,
+                1969.T, 1973.T, 1979.T, 2002.T, 2120.T, 2121.T, 2124.T, 2127.T, 2146.T,
+                2151.T, 2154.T, 2157.T, 2175.T, 2181.T, 2201.T, 2206.T, 2212.T, 2229.T,
+                2264.T, 2267.T, 2269.T, 2270.T, 2281.T, 2282.T, 2292.T, 2296.T, 2317.T,
+                2327.T, 2331.T, 2337.T, 2371.T, 2379.T, 2398.T, 2412.T, 2413.T, 2427.T,
+                2432.T, 2433.T, 2440.T, 2471.T, 2491.T, 2501.T, 2502.T, 2503.T, 2579.T,
+                2587.T, 2590.T, 2593.T, 2607.T, 2651.T, 2670.T, 2678.T, 2685.T, 2695.T,
+                2702.T, 2768.T, 2782.T, 2784.T, 2801.T, 2802.T, 2809.T, 2810.T, 2815.T,
+                2871.T, 2875.T, 2897.T, 2914.T, 2930.T, 3002.T, 3003.T, 3034.T, 3038.T,
+                3046.T, 3048.T, 3050.T, 3064.T, 3086.T, 3088.T, 3092.T, 3097.T, 3099.T,
+                3101.T, 3105.T, 3110.T, 3116.T, 3139.T, 3141.T, 3186.T, 3197.T, 3231.T,
+                3288.T, 3289.T, 3291.T, 3349.T, 3360.T, 3382.T, 3391.T, 3397.T, 3401.T,
+                3402.T, 3405.T, 3407.T, 3436.T, 3543.T, 3549.T, 3563.T, 3593.T, 3626.T,
+                3632.T, 3655.T, 3659.T, 3668.T, 3687.T, 3738.T, 3762.T, 3765.T, 3769.T,
+                3774.T, 3861.T, 3863.T, 3865.T, 3880.T, 3902.T, 3923.T, 3938.T, 3941.T,
+                3966.T, 3978.T, 3994.T, 4004.T, 4005.T, 4021.T, 4023.T, 4042.T, 4043.T,
+                4061.T, 4062.T, 4063.T, 4088.T, 4091.T, 4109.T, 4114.T, 4118.T, 4151.T,
+                4182.T, 4183.T, 4185.T, 4186.T, 4188.T, 4189.T, 4202.T, 4203.T, 4204.T,
+                4205.T, 4206.T, 4208.T, 4290.T, 4293.T, 4307.T, 4321.T, 4324.T, 4343.T,
+                4368.T, 4369.T, 4384.T, 4385.T, 4397.T, 4403.T, 4423.T, 4452.T, 4461.T,
+                4478.T, 4483.T, 4485.T, 4502.T, 4503.T, 4506.T, 4507.T, 4516.T, 4519.T,
+                4523.T, 4527.T, 4528.T, 4536.T, 4540.T, 4541.T, 4543.T, 4544.T, 4547.T,
+                4549.T, 4552.T, 4553.T, 4554.T, 4555.T, 4565.T, 4568.T, 4578.T, 4581.T,
+                4587.T, 4593.T, 4612.T, 4613.T, 4626.T, 4631.T, 4661.T, 4666.T, 4676.T,
+                4680.T, 4681.T, 4684.T, 4689.T, 4694.T, 4704.T, 4708.T, 4716.T, 4732.T,
+                4733.T, 4739.T, 4751.T, 4755.T, 4768.T, 4812.T, 4816.T, 4848.T, 4849.T,
+                4901.T, 4902.T, 4911.T, 4912.T, 4917.T, 4919.T, 4921.T, 4922.T, 4927.T,
+                4967.T, 4971.T, 4974.T, 4975.T, 4980.T, 4985.T, 5019.T, 5020.T, 5021.T,
+                5101.T, 5105.T, 5108.T, 5110.T, 5202.T, 5214.T, 5232.T, 5233.T, 5301.T,
+                5302.T, 5332.T, 5333.T, 5334.T, 5384.T, 5393.T, 5401.T, 5406.T, 5411.T,
+                5423.T, 5440.T, 5444.T, 5463.T, 5471.T, 5486.T, 5631.T, 5703.T, 5706.T,
+                5711.T, 5713.T, 5714.T, 5726.T, 5727.T, 5741.T, 5801.T, 5802.T, 5803.T,
+                5929.T, 5938.T, 5947.T, 5949.T, 5991.T, 6005.T, 6013.T, 6028.T, 6047.T,
+                6055.T, 6058.T, 6080.T, 6098.T, 6103.T, 6113.T, 6134.T, 6135.T, 6136.T,
+                6141.T, 6143.T, 6146.T, 6178.T, 6183.T, 6197.T, 6200.T, 6201.T, 6235.T,
+                6258.T, 6268.T, 6269.T, 6273.T, 6301.T, 6302.T, 6305.T, 6315.T, 6324.T,
+                6326.T, 6361.T, 6366.T, 6367.T, 6370.T, 6371.T, 6376.T, 6383.T, 6395.T,
+                6407.T, 6417.T, 6425.T, 6432.T, 6436.T, 6448.T, 6460.T, 6464.T, 6465.T,
+                6471.T, 6472.T, 6473.T, 6474.T, 6479.T, 6480.T, 6481.T, 6498.T, 6501.T,
+                6502.T, 6503.T, 6504.T, 6506.T, 6532.T, 6544.T, 6569.T, 6571.T, 6586.T,
+                6588.T, 6592.T, 6594.T, 6622.T, 6630.T, 6632.T, 6640.T, 6641.T, 6645.T,
+                6670.T, 6674.T, 6701.T, 6702.T, 6703.T, 6723.T, 6724.T, 6728.T, 6737.T,
+                6740.T, 6750.T, 6752.T, 6753.T, 6754.T, 6755.T, 6758.T, 6762.T, 6770.T,
+                6787.T, 6804.T, 6806.T, 6807.T, 6810.T, 6841.T, 6845.T, 6849.T, 6856.T,
+                6857.T, 6861.T, 6869.T, 6871.T, 6875.T, 6890.T, 6902.T, 6908.T, 6920.T,
+                6923.T, 6925.T, 6951.T, 6952.T, 6954.T, 6962.T, 6963.T, 6965.T, 6966.T,
+                6967.T, 6971.T, 6976.T, 6981.T, 6988.T, 6995.T, 6997.T, 7003.T, 7011.T,
+                7012.T, 7013.T, 7164.T, 7167.T, 7180.T, 7181.T, 7182.T, 7186.T, 7198.T,
+                7199.T, 7201.T, 7202.T, 7203.T, 7205.T, 7211.T, 7240.T, 7250.T, 7251.T,
+                7259.T, 7261.T, 7267.T, 7269.T, 7270.T, 7272.T, 7276.T, 7278.T, 7282.T,
+                7296.T, 7309.T, 7313.T, 7453.T, 7458.T, 7459.T, 7476.T, 7516.T, 7518.T,
+                7532.T, 7564.T, 7575.T, 7581.T, 7599.T, 7606.T, 7618.T, 7649.T, 7701.T,
+                7717.T, 7725.T, 7729.T, 7730.T, 7731.T, 7732.T, 7733.T, 7735.T, 7740.T,
+                7741.T, 7747.T, 7751.T, 7752.T, 7762.T, 7779.T, 7780.T, 7817.T, 7821.T,
+                7832.T, 7864.T, 7912.T, 7915.T, 7943.T, 7947.T, 7951.T, 7956.T, 7974.T,
+                7988.T, 7990.T, 8001.T, 8002.T, 8015.T, 8016.T, 8031.T, 8035.T, 8050.T,
+                8053.T, 8056.T, 8058.T, 8060.T, 8078.T, 8088.T, 8113.T, 8129.T, 8136.T,
+                8174.T, 8184.T, 8218.T, 8227.T, 8233.T, 8242.T, 8252.T, 8253.T, 8267.T,
+                8273.T, 8279.T, 8282.T, 8283.T, 8303.T, 8304.T, 8306.T, 8308.T, 8309.T,
+                8316.T, 8331.T, 8334.T, 8341.T, 8354.T, 8355.T, 8358.T, 8359.T, 8366.T,
+                8369.T, 8377.T, 8382.T, 8385.T, 8410.T, 8411.T, 8418.T, 8439.T, 8473.T,
+                8570.T, 8572.T, 8586.T, 8591.T, 8593.T, 8595.T, 8601.T, 8604.T, 8630.T,
+                8715.T, 8725.T, 8750.T, 8766.T, 8771.T, 8795.T, 8801.T, 8802.T, 8804.T,
+                8830.T, 8850.T, 8876.T, 8905.T, 8919.T, 8920.T, 9001.T, 9003.T, 9005.T,
+                9007.T, 9008.T, 9009.T, 9020.T, 9021.T, 9022.T, 9024.T, 9039.T, 9042.T,
+                9048.T, 9062.T, 9064.T, 9065.T, 9069.T, 9072.T, 9075.T, 9076.T, 9086.T,
+                9101.T, 9104.T, 9107.T, 9142.T, 9143.T, 9201.T, 9202.T, 9301.T, 9303.T,
+                9364.T, 9375.T, 9401.T, 9404.T, 9409.T, 9412.T, 9432.T, 9433.T, 9434.T,
+                9435.T, 9437.T, 9449.T, 9474.T, 9501.T, 9502.T, 9503.T, 9504.T, 9505.T,
+                9506.T, 9507.T, 9508.T, 9509.T, 9511.T, 9513.T, 9517.T, 9519.T, 9531.T,
+                9532.T, 9551.T, 9602.T, 9605.T, 9613.T, 9616.T, 9627.T, 9672.T, 9678.T,
+                9682.T, 9684.T, 9697.T, 9706.T, 9715.T, 9719.T, 9735.T, 9744.T, 9749.T,
+                9757.T, 9766.T, 9783.T, 9787.T, 9793.T, 9831.T, 9843.T, 9948.T, 9956.T,
+                9962.T, 9974.T, 9983.T, 9984.T, 9987.T, 9989.T]
+            UK: [888.L, AA.L, AAL.L, ABF.L, ADM.L, AGK.L, AHT.L, AJB.L, ANTO.L, AO.L,
+                ASCL.L, ASHM.L, AUTO.L, AV.L, AVON.L, AVV.L, AZN.L, BA.L, BAB.L, BARC.L,
+                BATS.L, BBY.L, BDEV.L, BEZ.L, BHP.L, BIFF.L, BKG.L, BME.L, BNZL.L,
+                BOY.L, BP.L, BRBY.L, BRW.L, BTA.L, BVIC.L, BWY.L, CBG.L, CCC.L, CCL.L,
+                CINE.L, CMCX.L, CNA.L, CNE.L, CPG.L, CPI.L, CRDA.L, CRST.L, CSP.L,
+                CTEC.L, CWK.L, DC.L, DGE.L, DLG.L, DNLM.L, DOM.L, DPH.L, DPLM.L, DRX.L,
+                ECM.L, EMG.L, EXPN.L, EZJ.L, FERG.L, FGP.L, FORT.L, FRAS.L, FRES.L,
+                FUTR.L, GAW.L, GFS.L, GLEN.L, GNS.L, GOG.L, GRG.L, GRI.L, GSK.L, GVC.L,
+                GYS.L, HAS.L, HFD.L, HIK.L, HILS.L, HL.L, HLMA.L, HOC.L, HSBA.L, HSTG.L,
+                HSV.L, HSX.L, HTWS.L, HWDN.L, IAG.L, IBST.L, ICP.L, IGG.L, IHG.L,
+                IHP.L, III.L, IMB.L, IMI.L, INCH.L, INDV.L, INF.L, INVP.L, ITRK.L,
+                ITV.L, IWG.L, JD.L, JDW.L, JLG.L, JMAT.L, JUP.L, KGF.L, LGEN.L, LLOY.L,
+                LRE.L, LSE.L, MAB.L, MARS.L, MCRO.L, MGGT.L, MKS.L, MNDI.L, MNG.L,
+                MONY.L, MRO.L, MRW.L, MSLH.L, NEX.L, NG.L, NWG.L, NXT.L, OCDO.L, OSB.L,
+                OXB.L, PAG.L, PAGE.L, PETS.L, PFC.L, PFG.L, PHNX.L, PLP.L, PNN.L,
+                PRU.L, PSN.L, PSON.L, PTEC.L, QLT.L, QQ.L, RB.L, RDSB.L, RDW.L, REDD.L,
+                REL.L, RIO.L, RMG.L, RMV.L, ROR.L, RR.L, RSA.L, RSW.L, RTO.L, SBRY.L,
+                SCT.L, SDR.L, SGE.L, SHI.L, SIG.L, SLA.L, SMDS.L, SMIN.L, SMWH.L,
+                SN.L, SOLG.L, SPX.L, SRP.L, SSE.L, SSPG.L, STJ.L, SVS.L, SVT.L, SXS.L,
+                SYNT.L, TALK.L, TATE.L, TCAP.L, TEP.L, TPK.L, TSCO.L, TW.L, ULE.L,
+                ULVR.L, UU.L, VCT.L, VEC.L, VOD.L, VSVS.L, VTY.L, WEIR.L, WG.L, WIZZ.L,
+                WMH.L, WPP.L, WTB.L]
+            US: [A, AAL, AAOI, AAON, AAP, AAPL, AAWW, AAXN, ABBV, ABC, ABCB, ABG,
+                ABM, ABMD, ABT, ABTX, ACA, ACAD, ACCO, ACEL, ACGL, ACHC, ACIA, ACIW,
+                ACLS, ACM, ACN, ACRX, ADBE, ADI, ADM, ADMA, ADNT, ADP, ADPT, ADS,
+                ADSK, ADSW, ADT, ADTN, ADUS, ADVM, AEE, AEGN, AEIS, AEL, AEO, AEP,
+                AERI, AES, AFL, AFMD, AGCO, AGEN, AGIO, AGLE, AGO, AGR, AGRX, AGTC,
+                AGYS, AHCO, AIG, AIMC, AIMT, AIN, AIR, AIT, AIZ, AJG, AJRD, AKAM,
+                AKBA, AKCA, AKRO, AL, ALB, ALBO, ALE, ALEC, ALGN, ALGT, ALK, ALKS,
+                ALL, ALLE, ALLK, ALLO, ALLY, ALNY, ALRM, ALSN, ALTR, ALXN, AM, AMAG,
+                AMAT, AMBA, AMCR, AMCX, AMD, AME, AMED, AMG, AMGN, AMK, AMKR, AMN,
+                AMP, AMPH, AMRX, AMSC, AMSF, AMSWA, AMTD, AMWD, AMZN, AN, ANAB, ANDE,
+                ANET, ANF, ANGO, ANIK, ANIP, ANSS, ANTM, AON, AOS, AOSL, APA, APAM,
+                APD, APEI, APH, APLS, APLT, APO, APOG, APPF, APPN, APPS, APRE, APTV,
+                AQST, AQUA, AR, ARAY, ARCB, ARCH, ARCT, ARDX, ARES, ARGO, ARLO, ARMK,
+                ARNA, AROC, ARVN, ARW, ARWR, ASB, ASC, ASGN, ASH, ASIX, ASMB, ASPN,
+                ASPS, ASPU, ASTE, ATEC, ATEX, ATGE, ATH, ATI, ATKR, ATNI, ATO, ATR,
+                ATRA, ATRC, ATRO, ATRS, ATSG, ATUS, ATVI, AUB, AUTL, AVA, AVAV, AVD,
+                AVEO, AVGO, AVID, AVLR, AVNS, AVNT, AVRO, AVT, AVTR, AVY, AVYA, AWI,
+                AWK, AWR, AX, AXGN, AXL, AXNX, AXP, AXS, AXSM, AXTA, AYI, AYX, AZO,
+                AZPN, AZZ, B, BA, BAC, BAH, BANC, BAND, BANF, BANR, BATRK, BAX, BBBY,
+                BBIO, BBY, BC, BCC, BCEI, BCEL, BCO, BCOR, BCOV, BCPC, BCRX, BDC,
+                BDGE, BDSI, BDX, BE, BEAT, BECN, BEN, BERY, BFA, BFB, BFAM, BG, BHE,
+                BHF, BHLB, BHVN, BIG, BIIB, BILL, BIO, BJ, BJRI, BK, BKD, BKE, BKH,
+                BKI, BKNG, BKR, BKU, BL, BLBD, BLD, BLDR, BLFS, BLK, BLKB, BLL, BLMN,
+                BLUE, BMCH, BMI, BMRN, BMTC, BMY, BNFT, BNTX, BOH, BOKF, BOMN, BOOM,
+                BOOT, BOX, BPFH, BPMC, BPOP, BR, BRBR, BRC, BRKB, BRKL, BRKR, BRKS,
+                BRO, BRY, BSIG, BSX, BTAI, BTU, BURL, BUSE, BV, BWA, BWXT, BXS, BYD,
+                BYND, BYSI, C, CABO, CAC, CACC, CACI, CADE, CAG, CAH, CAI, CAKE, CAL,
+                CALA, CALM, CALX, CAMP, CAR, CARA, CARG, CARS, CASA, CASH, CASY, CAT,
+                CATB, CATM, CATY, CB, CBAY, CBOE, CBRE, CBRL, CBSH, CBT, CBU, CBZ,
+                CC, CCK, CCL, CCOI, CCRN, CCS, CCXI, CDAY, CDK, CDLX, CDMO, CDNA,
+                CDNS, CDW, CDXC, CDXS, CE, CEIX, CELH, CENT, CENTA, CENX, CERN, CERS,
+                CEVA, CF, CFB, CFFN, CFR, CFX, CG, CGNX, CHCO, CHD, CHDN, CHE, CHEF,
+                CHGG, CHH, CHMA, CHNG, CHRS, CHRW, CHS, CHTR, CHUY, CHX, CI, CIEN,
+                CINF, CIR, CIT, CKPT, CL, CLAR, CLDR, CLF, CLFD, CLGX, CLH, CLNE,
+                CLR, CLW, CLX, CMA, CMBM, CMC, CMCO, CMCSA, CMD, CME, CMG, CMI, CMP,
+                CMRE, CMS, CMTL, CNA, CNC, CNCE, CNDT, CNK, CNMD, CNO, CNOB, CNP,
+                CNR, CNS, CNSL, CNST, CNTG, CNTY, CNX, CNXN, COF, COG, COHR, COHU,
+                COLB, COLL, COLM, COMM, CONN, COO, COP, CORE, CORT, COST, COTY, CPB,
+                CPF, CPK, CPRI, CPRT, CPRX, CPSI, CR, CREE, CRI, CRK, CRL, CRM, CRMT,
+                CRNC, CROX, CRS, CRTO, CRTX, CRUS, CRWD, CRY, CSCO, CSGP, CSGS, CSII,
+                CSL, CSOD, CSTL, CSX, CTAS, CTB, CTBI, CTLT, CTMX, CTS, CTSH, CTVA,
+                CTXS, CUB, CUBI, CUE, CURO, CUTR, CVA, CVBF, CVET, CVGW, CVI, CVLT,
+                CVNA, CVS, CVX, CW, CWEN, CWENA, CWH, CWK, CWST, CWT, CXO, CYBE, CYH,
+                CYRX, CYTK, D, DAL, DAN, DAR, DAVA, DBD, DBI, DBX, DCI, DCO, DCOM,
+                DCPH, DD, DDD, DDOG, DE, DECK, DELL, DENN, DFIN, DFS, DG, DGII, DGX,
+                DHI, DHR, DHT, DIN, DIOD, DIS, DISCA, DISCK, DISH, DK, DKS, DLB, DLTH,
+                DLTR, DLX, DMRC, DNKN, DNLI, DNOW, DOCU, DOMO, DOOR, DORM, DOV, DOW,
+                DOX, DPZ, DRI, DRNA, DRQ, DRRX, DSKE, DSPG, DSSI, DT, DTE, DTIL, DUK,
+                DVA, DVAX, DVN, DXC, DXCM, DXPE, DY, EA, EAF, EAT, EB, EBAY, EBIX,
+                EBS, EBSB, ECHO, ECL, ECOL, ECOM, ECPG, EDIT, EEFT, EFX, EGAN, EGBN,
+                EGHT, EGOV, EGRX, EHC, EHTH, EIDX, EIG, EIGI, EIGR, EIX, EL, ELAN,
+                ELF, ELY, EME, EMN, EMR, ENDP, ENPH, ENR, ENS, ENSG, ENTA, ENTG, ENV,
+                ENVA, EOG, EPAC, EPAM, EPAY, EPC, EPZM, EQH, EQT, ERII, ES, ESI, ESNT,
+                ESTC, ETH, ETM, ETN, ETNB, ETON, ETR, ETRN, ETSY, EV, EVBG, EVER,
+                EVH, EVOP, EVR, EVRG, EVRI, EVTC, EW, EWBC, EXAS, EXC, EXEL, EXLS,
+                EXP, EXPD, EXPI, EXPO, EXTR, EYE, EZPW, F, FAF, FANG, FARO, FAST,
+                FATE, FB, FBC, FBHS, FBIO, FBK, FBM, FBMS, FBNC, FBP, FCF, FCFS, FCN,
+                FCX, FDP, FDS, FDX, FE, FELE, FENC, FEYE, FFBC, FFIC, FFIN, FFIV,
+                FFWM, FGEN, FHB, FHI, FHN, FI, FIBK, FICO, FIS, FISV, FIT, FITB, FIVE,
+                FIVN, FIX, FIXX, FIZZ, FL, FLDM, FLGT, FLIR, FLO, FLOW, FLR, FLS,
+                FLT, FLWS, FLXN, FMBI, FMC, FN, FNB, FND, FNF, FNKO, FOCS, FOE, FOLD,
+                FOR, FORM, FORR, FOXA, FOXF, FPRX, FRC, FRME, FRO, FRPT, FRTA, FSLR,
+                FSLY, FSS, FTDR, FTNT, FTV, FUL, FULT, FWONA, FWONK, FWRD, G, GABC,
+                GATX, GBCI, GBT, GBX, GCI, GCO, GCP, GD, GDDY, GDEN, GDOT, GE, GEF,
+                GERN, GES, GFF, GGG, GH, GHL, GIII, GILD, GIS, GKOS, GL, GLIBA, GLNG,
+                GLOB, GLUU, GLW, GLYC, GM, GMED, GMS, GNK, GNMK, GNRC, GNTX, GNW,
+                GO, GOLF, GOOG, GOOGL, GOSS, GPC, GPI, GPK, GPN, GPRE, GPRO, GPS,
+                GRA, GRFS, GRMN, GRPN, GRUB, GRWG, GS, GSHD, GSKY, GT, GTES, GTHX,
+                GTLS, GTN, GVA, GWB, GWPH, GWRE, GWW, H, HA, HAE, HAFC, HAIN, HAL,
+                HALO, HARP, HAS, HAYN, HBAN, HBI, HBNC, HCA, HCAT, HCC, HCKT, HCM,
+                HCSG, HD, HDS, HE, HEAR, HEES, HEI, HELE, HES, HFC, HFWA, HGV, HI,
+                HIBB, HIG, HIMX, HL, HLI, HLIO, HLIT, HLNE, HLT, HLX, HMHC, HMN, HMST,
+                HMSY, HNI, HOG, HOLX, HOMB, HOME, HON, HONE, HOPE, HP, HPE, HPQ, HQY,
+                HRB, HRC, HRI, HRL, HRTX, HSC, HSIC, HSII, HSKA, HSTM, HSY, HTBK,
+                HTH, HTLD, HTLF, HUBB, HUBG, HUBS, HUD, HUM, HUN, HURN, HVT, HWC,
+                HWM, HXL, HZNP, HZO, IAA, IART, IBCP, IBKR, IBM, IBP, IBTX, ICAD,
+                ICE, ICFI, ICHR, ICPT, ICUI, IDA, IDCC, IDXX, IDYA, IEX, IFF, IGMS,
+                IGT, IHRT, IIIN, IIIV, IIVI, ILMN, IMAX, IMGN, IMMU, IMVT, IMXI, INCY,
+                INDB, INFN, INFO, INGN, INGR, INOV, INSM, INSP, INSW, INTC, INTU,
+                IONS, IOVA, IP, IPAR, IPG, IPGP, IPHI, IR, IRBT, IRDM, IRTC, IRWD,
+                ISBC, ISEE, ISRG, IT, ITCI, ITGR, ITRI, ITT, ITW, IVC, IVZ, J, JACK,
+                JAZZ, JBHT, JBL, JBLU, JBT, JCI, JCOM, JELD, JJSF, JKHY, JLL, JMIA,
+                JNCE, JNJ, JNPR, JPM, JRVR, JYNT, K, KAI, KALA, KALU, KAMN, KAR, KBH,
+                KBR, KDMN, KDP, KELYA, KEX, KEY, KEYS, KFRC, KFY, KHC, KIDS, KIN,
+                KKR, KLAC, KMB, KMI, KMPR, KMT, KMX, KN, KNSA, KNSL, KNX, KO, KOD,
+                KOP, KOS, KPTI, KR, KRA, KRNY, KRO, KRTX, KRYS, KSS, KSU, KTB, KTOS,
+                KURA, KW, KWR, LAD, LASR, LAUR, LAZ, LB, LBAI, LBRDA, LBRDK, LBRT,
+                LC, LCI, LCII, LDOS, LE, LEA, LECO, LEG, LEN, LENB, LFUS, LGFA, LGFB,
+                LGIH, LGND, LH, LHCG, LHX, LII, LILA, LILAK, LIN, LIND, LITE, LIVN,
+                LIVX, LKQ, LL, LLNW, LLY, LMAT, LMNX, LMT, LNC, LNDC, LNG, LNN, LNT,
+                LOCO, LOPE, LOVE, LOW, LPG, LPLA, LPSN, LPX, LQDA, LRCX, LSCC, LSTR,
+                LSXMA, LSXMK, LTHM, LULU, LUMN, LUNA, LUV, LVGO, LVS, LW, LXFR, LXRX,
+                LYB, LYFT, LYV, LZB, MA, MAN, MANH, MANT, MAR, MAS, MASI, MAT, MATX,
+                MAXR, MBI, MBIO, MBUU, MC, MCD, MCFT, MCHP, MCK, MCO, MCRB, MCRI,
+                MCS, MD, MDB, MDGL, MDLA, MDLZ, MDP, MDRX, MDT, MDU, MED, MEDP, MEIP,
+                MESA, MET, MGI, MGLN, MGM, MGNI, MGNX, MGPI, MGRC, MGTA, MGY, MHK,
+                MIC, MIDD, MIK, MIME, MIRM, MITK, MKC, MKL, MKSI, MKTX, MLAB, MLCO,
+                MLHR, MLM, MMC, MMI, MMM, MMS, MMSI, MNKD, MNOV, MNRL, MNRO, MNST,
+                MO, MOBL, MOD, MODN, MOGA, MOH, MORF, MOS, MPAA, MPC, MPWR, MR, MRC,
+                MRCY, MRK, MRNA, MRNS, MRO, MRTN, MRTX, MRVL, MS, MSA, MSBI, MSCI,
+                MSEX, MSFT, MSGN, MSGS, MSI, MSM, MTB, MTCH, MTD, MTDR, MTEM, MTG,
+                MTH, MTN, MTOR, MTRX, MTSC, MTSI, MTW, MTX, MTZ, MU, MUR, MUSA, MWA,
+                MXIM, MXL, MYE, MYGN, MYL, MYOK, MYRG, NAT, NATI, NAV, NAVI, NBEV,
+                NBHC, NBIX, NBL, NBR, NBSE, NBTB, NCBS, NCLH, NCMI, NCR, NDAQ, NDLS,
+                NDSN, NEE, NEM, NEO, NEOG, NERV, NEWR, NEX, NFBK, NFG, NFLX, NGHC,
+                NGM, NGVT, NI, NJR, NKE, NKTR, NLOK, NLS, NLSN, NLTX, NMIH, NMRK,
+                NNBR, NOC, NOV, NOVT, NOW, NP, NPO, NPTN, NRG, NSC, NSIT, NSP, NSSC,
+                NSTG, NTAP, NTCT, NTGR, NTLA, NTNX, NTRA, NTRS, NUAN, NUE, NUS, NUVA,
+                NVAX, NVCR, NVDA, NVEE, NVR, NVRO, NVST, NVT, NVTA, NWBI, NWE, NWL,
+                NWN, NWPX, NWS, NWSA, NX, NXGN, NXST, NXTC, NYCB, NYT, OC, OCFC, OCUL,
+                ODFL, ODP, ODT, OEC, OESX, OFIX, OGE, OGS, OII, OIS, OKE, OKTA, OLED,
+                OLLI, OLN, OMC, OMCL, OMER, OMF, OMI, 'ON', ONB, ONTO, OOMA, OPCH,
+                OPK, OPRA, OPRT, OPTN, ORA, ORBC, ORCL, ORI, ORLY, ORTX, OSIS, OSK,
+                OSMT, OSPN, OSUR, OTTR, OVID, OVV, OXM, OXY, OYST, OZK, PACB, PACW,
+                PAG, PAHC, PANW, PAR, PARR, PATK, PAYC, PAYS, PAYX, PB, PBCT, PBF,
+                PBH, PBI, PBYI, PCG, PCRX, PCTY, PD, PDCE, PDCO, PDFS, PE, PEBO, PEG,
+                PEGA, PEN, PENN, PEP, PETQ, PFBC, PFG, PFGC, PFPT, PFS, PFSI, PG,
+                PGNY, PGR, PGTI, PH, PHM, PHR, PI, PII, PINC, PING, PINS, PKG, PKI,
+                PLAB, PLAN, PLAY, PLCE, PLMR, PLNT, PLOW, PLT, PLUG, PLUS, PLXS, PM,
+                PNC, PNFP, PNM, PNR, PNTG, PNW, PODD, POOL, POR, POST, POWI, POWL,
+                PPBI, PPC, PPG, PPL, PQG, PRA, PRAA, PRAH, PRFT, PRGO, PRGS, PRI,
+                PRIM, PRK, PRLB, PRMW, PRO, PRPL, PRSP, PRTA, PRTK, PRTS, PRU, PRVB,
+                PRVL, PS, PSN, PSNL, PSTG, PSX, PTC, PTCT, PTEN, PTGX, PTON, PUMP,
+                PVAC, PVH, PWR, PXD, PYPL, PZZA, QADA, QCOM, QCRH, QDEL, QGEN, QLYS,
+                QNST, QRTEA, QRVO, QTNT, QTRX, QTWO, QUOT, R, RAD, RAMP, RAPT, RARE,
+                RAVN, RBBN, RBC, RCII, RCKT, RCL, RCM, RDFN, RDHL, RDN, RDNT, RDUS,
+                RE, REAL, REGN, REPL, RES, RESN, RETA, REVG, REZI, RF, RGA, RGEN,
+                RGLD, RGNX, RGP, RGS, RH, RHI, RIG, RIGL, RJF, RL, RLGY, RLI, RLMD,
+                RM, RMAX, RMBS, RMD, RMR, RNG, RNR, RNST, ROAD, ROCK, ROG, ROK, ROKU,
+                ROL, ROLL, ROP, ROST, RP, RPD, RPM, RRC, RRGB, RRR, RS, RSG, RST,
+                RTRX, RTX, RUN, RUSHA, RUTH, RVNC, RXN, RYAM, RYTM, SABR, SAFM, SAGE,
+                SAH, SAIA, SAIC, SAIL, SALT, SAM, SANM, SATS, SAVE, SBBP, SBCF, SBGI,
+                SBH, SBNY, SBSI, SBUX, SC, SCCO, SCHN, SCHW, SCL, SCS, SCSC, SCVL,
+                SCWX, SE, SEAS, SEDG, SEE, SEIC, SELB, SEM, SERV, SF, SFBS, SFL, SFM,
+                SFNC, SGEN, SGH, SGMO, SGMS, SGRY, SHEN, SHYF, SIBN, SIEN, SIG, SIGI,
+                SILK, SIMO, SIRI, SITE, SIVB, SIX, SJI, SJM, SJW, SKX, SKY, SKYW,
+                SLAB, SLB, SLCA, SLGN, SLM, SM, SMCI, SMG, SMP, SMPL, SMTC, SNA, SNBR,
+                SNCR, SNDR, SNPS, SNV, SNX, SO, SOI, SON, SP, SPB, SPGI, SPLK, SPNE,
+                SPNS, SPOT, SPPI, SPR, SPRO, SPSC, SPTN, SPWR, SPXC, SQ, SR, SRCE,
+                SRCL, SRDX, SRE, SRI, SRRK, SSB, SSD, SSNC, SSP, SSTI, ST, STAA, STAY,
+                STBA, STE, STL, STLD, STMP, STNE, STNG, STOK, STRA, STRL, STRO, STT,
+                STZ, SUM, SUPN, SVMK, SWAV, SWBI, SWCH, SWI, SWK, SWKS, SWM, SWN,
+                SWTX, SWX, SXC, SXI, SYBT, SYF, SYK, SYKE, SYNA, SYNH, SYRS, SYY,
+                T, TACO, TALO, TAP, TAST, TBI, TBIO, TBK, TBPH, TCBI, TCBK, TCF, TCMD,
+                TCRR, TDC, TDG, TDOC, TDS, TDY, TEAM, TECH, TEN, TENB, TER, TEVA,
+                TEX, TFC, TFX, TGI, TGNA, TGT, TGTX, THC, THFF, THO, THR, THRM, THS,
+                TIF, TILE, TISI, TITN, TJX, TKR, TLND, TLYS, TMDX, TMHC, TMO, TMP,
+                TMUS, TNC, TNDM, TNET, TOL, TOWN, TPB, TPC, TPH, TPIC, TPR, TPTX,
+                TPX, TREE, TREX, TRGP, TRHC, TRIP, TRMB, TRMK, TRN, TROW, TROX, TRS,
+                TRTN, TRU, 'TRUE', TRUP, TRV, TRWH, TSC, TSCO, TSE, TSLA, TSN, TT,
+                TTC, TTD, TTEC, TTEK, TTGT, TTMI, TTWO, TUP, TVTY, TW, TWLO, TWNK,
+                TWOU, TWST, TWTR, TXG, TXN, TXRH, TXT, TYL, UAA, UAL, UBER, UBSI,
+                UBX, UCBI, UCTT, UEIC, UFCS, UFI, UFPI, UFS, UGI, UHS, ULH, ULTA,
+                UMBF, UMPQ, UNF, UNFI, UNH, UNM, UNP, UNVR, UPLD, UPS, UPWK, URBN,
+                URGN, URI, USB, USCR, USFD, USM, USPH, USX, UTHR, UTI, UTL, UUUU,
+                UVSP, V, VAC, VAPO, VAR, VBIV, VBTX, VC, VCEL, VCRA, VCYT, VEC, VECO,
+                VEEV, VERI, VERU, VFC, VG, VIAC, VIACA, VIAV, VICR, VIE, VIR, VIRT,
+                VKTX, VLO, VLY, VMC, VMD, VMI, VMW, VNDA, VNRX, VOYA, VPG, VRA, VRAY,
+                VRCA, VREX, VRNS, VRNT, VRRM, VRSK, VRSN, VRTS, VRTU, VRTX, VSAT,
+                VSH, VSLR, VST, VSTM, VSTO, VVI, VVV, VYGR, VYNE, VZ, W, WAB, WABC,
+                WAFD, WAL, WASH, WAT, WBA, WBS, WBT, WCC, WD, WDAY, WDC, WDFC, WDR,
+                WEC, WEN, WERN, WETF, WEX, WFC, WGO, WH, WHD, WHR, WIFI, WING, WIRE,
+                WK, WLDN, WLK, WLTW, WM, WMB, WMGI, WMS, WMT, WNC, WOR, WORK, WOW,
+                WPX, WRB, WRK, WRLD, WSBC, WSC, WSFS, WSM, WSO, WST, WTFC, WTI, WTRE,
+                WTRG, WTRH, WTS, WTTR, WU, WVE, WW, WWD, WWE, WWW, WYND, WYNN, X,
+                XEC, XEL, XENT, XLNX, XLRN, XNCR, XOM, XPEL, XPER, XPO, XRAY, XRX,
+                XYL, YELP, YETI, YEXT, YMAB, YORW, YUM, YUMC, ZBH, ZBRA, ZEN, ZG,
+                ZGNX, ZION, ZIOP, ZIXI, ZM, ZNGA, ZS, ZTS, ZUMZ, ZUO]
+    Forex:
+        Forward:
+            AUDUSD: []
+            EURUSD: []
+            GBPUSD: []
+            USDJPY: []
+        Spot:
+            ? ''
+            : [EURUSD=X]
+            AU: [AUDUSD=X]
+            JP: [USDJPY=X]
+            UK: [GBPUSD=X]
