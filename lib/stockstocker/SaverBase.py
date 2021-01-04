@@ -20,6 +20,12 @@ MYSQLURL = URL + "FinancialData"
 
 class SaverBase:
 
+    def __init__(self):
+        self.engine = create_engine(MYSQLURL, connect_args={'connect_timeout': 10})
+
+    def __del__(self):
+        self.engine.dispose()
+
     @staticmethod
     def __get_latest_date(folder_dir, extention="hdf"):
         """ ディレクトリ内のhdfファイルから, 最も新しいエントリの日時を取得
@@ -53,16 +59,15 @@ class SaverBase:
         """ get latest timestamp of target timestamp and ticker
         """
         try:
-            engine = create_engine(MYSQLURL)
-            con = engine.connect()
+            con = self.engine.connect()
             res = con.execute(
                 f"select timestamp from {table} where ticker='{ticker}' order by timestamp desc limit 1").first()
-            engine.dispose()
+            con.close()
             if res is None:
                 return None
             else:
                 return res[0]
 
         except Exception as e:
-            engine.dispose()
+            self.engine.dispose()
             self.logger.error(e)

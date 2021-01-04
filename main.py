@@ -3,6 +3,7 @@ import datetime
 import os
 import logging
 import logging.handlers
+import numpy as np
 import pandas as pd
 from concurrent import futures
 from os.path import dirname
@@ -41,10 +42,10 @@ if __name__ == "__main__":
     setLogger(yfinance, "yahoo")
     setLogger(investing, "investing")
 
-    # 銘柄コードupdate
+    # # 銘柄コードupdate
     # numerai.refresh()
 
-    # @investing.com
+    # # @investing.com
     task = []
     sym_inv = pd.json_normalize(investing.config_dict).iloc[0].values.sum()    
     with futures.ThreadPoolExecutor(max_workers=3) as executor1:
@@ -54,10 +55,13 @@ if __name__ == "__main__":
 
 
     # @yahoo
-    # sym_yf = pd.json_normalize(yfinance.config_dict).iloc[0].values.sum()
-    # with futures.ThreadPoolExecutor(max_workers=2) as executor2:
+    sym_yf = np.array(pd.json_normalize(yfinance.config_dict).iloc[0].values.sum())
+    # with futures.ThreadPoolExecutor(max_workers=1) as executor2:
     #     for sym in sym_yf:
     #         task.append( executor2.submit(yfinance.push_ohlcv, "Daily", sym) )
     #         task.append( executor2.submit(yfinance.push_ohlcv, "Intraday", sym) )
-    # yfinance.logger.info("END")
+    for sym in sym_yf:
+        yfinance.push_ohlcv("Daily", sym)
+        yfinance.push_ohlcv("Intraday", sym)
+    yfinance.logger.info("END")
     futures.as_completed(fs=task)

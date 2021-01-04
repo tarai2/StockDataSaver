@@ -24,6 +24,8 @@ DAY1 = datetime.timedelta(1)
 class InvestingSaver(SaverBase):
 
     def __init__(self):
+        super().__init__()
+
         NumeraiStockUpdater.prepare_config(
             os.path.dirname(__file__) + "/config.yaml"
         )
@@ -36,7 +38,10 @@ class InvestingSaver(SaverBase):
             self.logger.info("loaded config.yaml")
 
         self.permitRetry = True
-        self._lock = Lock()
+
+
+    def __del__(self):
+        super().__del__()
 
 
     def push_ohlcv(self, symbol):
@@ -46,8 +51,7 @@ class InvestingSaver(SaverBase):
         """
         table = "Daily"
         try:
-            with self._lock: self.logger.info(symbol)
-            engine = create_engine(MYSQLURL)
+            self.logger.info(symbol)
             latest_date = self._get_latest_date("Daily", symbol)
             search_res = investpy.search(text=symbol)
             search_res = [r for r in search_res if r.name == symbol][0]
@@ -57,17 +61,20 @@ class InvestingSaver(SaverBase):
                     from_date='01/01/1950',
                     to_date=datetime.date.today().strftime("%d/%m/%Y")
                 ).iloc[:, :5].drop_duplicates()
-                with self._lock: self.logger.info(f"New {table} OHLCV '{symbol}'")
-            elif latest_date+DAY1 <= datetime.datetime.now():
+                self.logger.info(f"New {table} OHLCV '{symbol}'")
+            elif (latest_date+DAY1).date() < datetime.date.today():
                 # append
                 df = search_res.retrieve_historical_data(
                     from_date=(latest_date+DAY1).strftime("%d/%m/%Y"),
                     to_date=datetime.date.today().strftime("%d/%m/%Y")
-                ).iloc[:, :5].loc[latest_date+datetime.timedelta(seconds=1):].drop_duplicates()
-                with self._lock: self.logger.info(f"{table} OHLCV '{symbol}' pushed")
+                )
+                if df is None: 
+                    return
+                else:
+                    df = df.iloc[:, :5].loc[latest_date+datetime.timedelta(seconds=1):].drop_duplicates()
+                self.logger.info(f"{table} OHLCV '{symbol}' pushed")
             else:
                 # no request for invalid date range
-                engine.dispose()
                 return
 
             # reform and extract 
@@ -76,15 +83,15 @@ class InvestingSaver(SaverBase):
             df["ticker"] = symbol
 
             # push to mysql
-            df.reset_index().to_sql(table, engine, if_exists="append", index=False)
-            with self._lock: self.logger.info(f"{table} OHLCV '{symbol}' pushed")
+            if df.shape[0] > 0:
+                con = self.engine.connect()
+                df.reset_index().to_sql(table, con, if_exists="append", index=False)
+                con.close()
+            self.logger.info(f"{table} OHLCV '{symbol}' pushed")
             self.permitRetry = True
 
         except KeyboardInterrupt:
             sys.exit()
         except Exception as e:
-            with self._lock:
-                self.logger.exception(f"Error in downloading {table} '{symbol}' OHLCV")
-                self.logger.exception(e, exc_info=True)
-        finally:
-            engine.dispose()
+            self.logger.exception(f"Error in downloading {table} '{symbol}' OHLCV")
+            self.logger.exception(e, exc_info=True)

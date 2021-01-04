@@ -9,6 +9,7 @@ import pandas as pd
 import tables
 import yfinance as yf
 import time
+import timeout_decorator
 import datetime
 import urllib
 from glob import glob
@@ -27,6 +28,8 @@ DAY1 = datetime.timedelta(1)
 class YFinanceSaver(SaverBase):
 
     def __init__(self):
+        super().__init__()
+
         NumeraiStockUpdater.prepare_config(
             os.path.dirname(__file__) + "/config.yaml"
         )
@@ -42,7 +45,11 @@ class YFinanceSaver(SaverBase):
             self.logger.info("loaded config.yaml")
 
         self.permitRetry = True
-        self._lock = Lock()
+
+
+    def __del__(self):
+        super().__del__()
+
 
     def push_ohlcv(self, table, symbol):
         """ symbolの1min OHLCVをupdate.
@@ -61,18 +68,21 @@ class YFinanceSaver(SaverBase):
 
         # request
         try:
-            with self._lock: self.logger.info(symbol)
-            engine = create_engine(MYSQLURL)
+            self.logger.info(symbol)
             yfTicker = yf.Ticker(symbol)
             latest_date = self._get_latest_date(table, symbol)
+            # self.logger.info("fetched latest_date")
             if latest_date is None:
                 # new save
                 start = None if table == 'Daily' else (datetime.datetime.now()-7*DAY1).strftime("%Y-%m-%d")
-                df = yfTicker.history(
-                    interval=interval, period=period,
-                    start=start,
-                    end=(datetime.datetime.now()).strftime("%Y-%m-%d")).drop_duplicates()
-                with self._lock: self.logger.info(f"New {table} OHLCV '{symbol}'")
+                @timeout_decorator.timeout(30)
+                def get_data():
+                    return yfTicker.history(
+                        interval=interval, period=period,
+                        start=start,
+                        end=(datetime.datetime.now()).strftime("%Y-%m-%d")).drop_duplicates()
+                df = get_data()
+                self.logger.info(f"New {table} OHLCV '{symbol}'")
             else:
                 # update
                 if table == 'Intraday' and (datetime.datetime.now() - latest_date) > datetime.timedelta(6):
@@ -80,46 +90,55 @@ class YFinanceSaver(SaverBase):
                     latest_date = datetime.datetime.now() - 6*DAY1
                 if (datetime.datetime.now()-DAY1).date() <= latest_date.date():
                     # no request for invalid range
-                    engine.dispose()
+                    self.logger.info("No updation")
                     return
-                df = yfTicker.history(
+                @timeout_decorator.timeout(30)
+                def get_data():
+                    return yfTicker.history(
                         interval=interval,
                         start=latest_date.strftime("%Y-%m-%d"),
                         end=(datetime.datetime.now()-DAY1).strftime("%Y-%m-%d")
-                        ).loc[latest_date+datetime.timedelta(seconds=1):].drop_duplicates()
+                        ).drop_duplicates()
+                df = get_data()
 
             # reform and extract data
             if df.index.tz is None:
-                df = df.iloc[:, :5].reset_index()
+                if latest_date is None: latest_date = df.index.min() - datetime.timedelta(seconds=1)
+                df = df.iloc[:, :5].loc[latest_date+datetime.timedelta(seconds=1):].reset_index()
             else:
-                df = df.tz_convert(None).iloc[:, :5].reset_index()
+                if latest_date is None: latest_date = df.index.tz_convert(None).min() - datetime.timedelta(seconds=1)
+                df = df.tz_convert(None).iloc[:, :5].loc[latest_date+datetime.timedelta(seconds=1):].reset_index()
             df.columns = ["timestamp", "open", "high", "low", "close", "volume"]
             df["ticker"] = symbol
 
             # push to mysql
-            df.to_sql(table, engine, if_exists="append", index=False)
-            with self._lock: self.logger.info(f"{table} OHLCV '{symbol}' pushed")
+            if df.shape[0] > 0:
+                con = self.engine.connect()
+                df.to_sql(table, con, if_exists="append", index=False)
+                self.logger.info(f"{table} OHLCV '{symbol}' pushed")
+                con.close()
+            # time.sleep(2)
             self.permitRetry = True
+            
         except KeyboardInterrupt:
             sys.exit()
         except AttributeError as e:
-            with self._lock: self.logger.info(f"Sorry, '{symbol}' seems to have no {table} OHLCV")
+            self.logger.info(f"Sorry, '{symbol}' seems to have no {table} OHLCV")
         except json.JSONDecodeError as e:
-            with self._lock: self.logger.info(f"Sorry, '{symbol}' seems to have no {table} OHLCV")
+            self.logger.info(f"Sorry, '{symbol}' seems to have no {table} OHLCV")
         except urllib.error.HTTPError as e:
             if self.permitRetry:
-                with self._lock: self.logger.info("HTTPError ... Retry")
+                self.logger.info("HTTPError ... Retry")
                 self.permitRetry = False
                 time.sleep(2)
                 self.push_ohlcv(table, symbol)
             else:
-                with self._lock: self.logger.info(f"Maximum Retry counts exceeded in HTTPError at '{symbol}'")
+                self.logger.info(f"Maximum Retry counts exceeded in HTTPError at '{symbol}'")
+        except timeout_decorator.timeout_decorator.TimeoutError as e:
+            self.logger.info("Timed Out")
         except Exception as e:
-            with self._lock:
-                self.logger.exception(f"Error in downloading Intraday '{symbol}' OHLCV")
-                self.logger.exception(e, exc_info=True)
-        finally:
-            engine.dispose()
+            self.logger.exception(f"Error in downloading Intraday '{symbol}' OHLCV")
+            self.logger.exception(e, exc_info=True)
 
 
     # def _get_symbol_info(self, symbol, folder_path):
